@@ -4,13 +4,13 @@ import imt.framework.back.imtframeworkback.data.models.DishModel;
 import imt.framework.back.imtframeworkback.data.repositories.DishRepository;
 import imt.framework.back.imtframeworkback.data.services.DishService;
 import imt.framework.back.imtframeworkback.domain.models.Dish;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class DishServiceImpl implements DishService {
-    @Autowired
-    private DishRepository dishRepository;
+    private final DishRepository dishRepository;
 
     @Override
     public void save (Dish dish) {

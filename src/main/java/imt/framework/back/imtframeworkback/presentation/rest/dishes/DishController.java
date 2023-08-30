@@ -2,13 +2,13 @@ package imt.framework.back.imtframeworkback.presentation.rest.dishes;
 
 import imt.framework.back.imtframeworkback.domain.requests.DishReq;
 import imt.framework.back.imtframeworkback.domain.usecases.AddDishUseCase;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequiredArgsConstructor
 public class DishController implements DishResources {
-    @Autowired
-    private AddDishUseCase addDishUseCase;
+    private final AddDishUseCase addDishUseCase;
 
     @Override
     public void createDish (String image, String title, String description, Double price, String category) {
