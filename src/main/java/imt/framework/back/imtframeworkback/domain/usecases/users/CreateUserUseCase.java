@@ -15,7 +15,7 @@ public class CreateUserUseCase implements UseCase<UserReq, Void> {
     @Override
     public Void command(UserReq userReq) {
         User user = User.fromReq(userReq);
-        //TODO change balance
+        user.toBuilder().balance(200.0).build();
         userService.save(user);
         return null;
     }
