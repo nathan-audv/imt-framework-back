@@ -7,6 +7,9 @@ import imt.framework.back.imtframeworkback.domain.models.Dish;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class DishServiceImpl implements DishService {
@@ -15,5 +18,10 @@ public class DishServiceImpl implements DishService {
     @Override
     public void save (Dish dish) {
         dishRepository.save(DishModel.fromDomain(dish));
+    }
+
+    @Override
+    public List<Dish> findAll ( ) {
+        return dishRepository.findAll().stream().map(Dish::fromData).collect(Collectors.toList());
     }
 }

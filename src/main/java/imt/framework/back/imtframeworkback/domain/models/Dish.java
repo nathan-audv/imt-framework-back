@@ -26,4 +26,14 @@ public class Dish {
                 .category(dish.getCategory())
                 .build();
     }
+    public static Dish fromData(DishModel dish){
+        return Dish.builder()
+                .id(dish.getId())
+                .image(dish.getImage())
+                .title(dish.getTitle())
+                .description(dish.getDescription())
+                .price(dish.getPrice())
+                .category(dish.getCategory())
+                .build();
+    }
 }
