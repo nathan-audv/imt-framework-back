@@ -12,6 +12,7 @@ public class User {
     String mail;
     String firstname;
     String lastname;
+    String password;
     Double balance;
 
     public static User fromReq(UserReq user){
@@ -19,6 +20,7 @@ public class User {
                 .mail(user.getMail())
                 .firstname(user.getFirstname())
                 .lastname(user.getLastname())
+                .password(user.getPassword())
                 .build();
     }
 }
