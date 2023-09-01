@@ -23,4 +23,15 @@ public class User {
                 .password(user.getPassword())
                 .build();
     }
+
+    public static User fromData(UserModel user){
+        return User.builder()
+                .id(user.getId())
+                .mail(user.getMail())
+                .firstname(user.getFirstname())
+                .lastname(user.getLastname())
+                .password(user.getPassword())
+                .balance(user.getBalance())
+                .build();
+    }
 }

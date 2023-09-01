@@ -7,6 +7,8 @@ import imt.framework.back.imtframeworkback.domain.models.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
@@ -15,5 +17,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public void save(User user) {
         userRepository.save(UserModel.fromDomain(user));
+    }
+
+    @Override
+    public Optional<User> findByMail(String mail) {
+        return userRepository.findByMail(mail).map(User::fromData);
     }
 }
