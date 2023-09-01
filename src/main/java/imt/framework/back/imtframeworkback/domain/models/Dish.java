@@ -4,8 +4,12 @@ import imt.framework.back.imtframeworkback.data.models.DishModel;
 import imt.framework.back.imtframeworkback.domain.requests.DishReq;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import lombok.Builder;
 import lombok.Value;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Value
 @Builder
@@ -16,6 +20,7 @@ public class Dish {
     String description;
     Double price;
     String category;
+    List<String> allergens;
 
     public static Dish fromReq(DishReq dish){
         return Dish.builder()
@@ -24,6 +29,7 @@ public class Dish {
                 .description(dish.getDescription())
                 .price(dish.getPrice())
                 .category(dish.getCategory())
+                .allergens(dish.getAllergens())
                 .build();
     }
     public static Dish fromData(DishModel dish){
@@ -34,6 +40,7 @@ public class Dish {
                 .description(dish.getDescription())
                 .price(dish.getPrice())
                 .category(dish.getCategory())
+                .allergens(dish.getAllergens())
                 .build();
     }
 }
