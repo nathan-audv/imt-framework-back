@@ -1,6 +1,6 @@
 package imt.framework.back.imtframeworkback.domain.usecases.users;
 
-import imt.framework.back.imtframeworkback.core.errors.UserNotFoundException;
+import imt.framework.back.imtframeworkback.core.errors.UserAlreadyExistException;
 import imt.framework.back.imtframeworkback.core.utils.UseCase;
 import imt.framework.back.imtframeworkback.data.services.impl.UserServiceImpl;
 import imt.framework.back.imtframeworkback.domain.models.User;
@@ -22,7 +22,7 @@ public class CreateUserUseCase implements UseCase<UserReq, Void> {
         User user = User.fromReq(userReq);
         Optional<User> existing = userService.findByMail(user.getMail());
         if(existing.isPresent()) {
-            throw new UserNotFoundException("User " + user.getMail() + " already exist");
+            throw new UserAlreadyExistException("User " + user.getMail() + " already exist");
         }
         String password = passwordEncoder.encode(user.getPassword());
         user = user.toBuilder().password(password).balance(200.0).build();

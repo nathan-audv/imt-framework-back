@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
 public class ErrorHandler {
-    @ExceptionHandler(value = {UserNotFoundException.class})
+    @ExceptionHandler(value = {UserAlreadyExistException.class})
     public ResponseEntity<String> alreadyExist(Exception exception) {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(exception.getMessage());
     }
