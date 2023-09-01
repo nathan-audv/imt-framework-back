@@ -18,7 +18,7 @@ public class CreateUserUseCase implements UseCase<UserReq, Void> {
     public Void command(UserReq userReq) {
         User user = User.fromReq(userReq);
         String password = passwordEncoder.encode(user.getPassword());
-        user.toBuilder().password(password).balance(200.0).build();
+        user = user.toBuilder().password(password).balance(200.0).build();
         userService.save(user);
         return null;
     }

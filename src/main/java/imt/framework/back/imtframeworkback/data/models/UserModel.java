@@ -4,18 +4,20 @@ import imt.framework.back.imtframeworkback.domain.models.User;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import lombok.Builder;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 
 @Entity(name = "users")
-@Builder
-@RequiredArgsConstructor
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder(toBuilder = true)
 public class UserModel {
     @Id @GeneratedValue
     Integer id;
     String mail;
     String firstname;
     String lastname;
+    String password;
     Double balance;
 
     public static UserModel fromDomain(User user){
@@ -24,6 +26,7 @@ public class UserModel {
                 .mail(user.getMail())
                 .firstname(user.getFirstname())
                 .lastname(user.getLastname())
+                .password(user.getPassword())
                 .balance(user.getBalance())
                 .build();
     }
