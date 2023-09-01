@@ -1,11 +1,16 @@
 package imt.framework.back.imtframeworkback.data.models;
 
 import imt.framework.back.imtframeworkback.domain.models.Dish;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Entity(name = "dishes")
 @Data
@@ -20,6 +25,8 @@ public class DishModel {
     String description;
     Double price;
     String category;
+    @ElementCollection
+    List<String> allergens;
 
     public static DishModel fromDomain(Dish dish){
         return DishModel.builder()
@@ -29,6 +36,7 @@ public class DishModel {
                 .description(dish.getDescription())
                 .price(dish.getPrice())
                 .category(dish.getCategory())
+                .allergens(dish.getAllergens())
                 .build();
     }
 }
