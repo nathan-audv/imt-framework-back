@@ -11,4 +11,14 @@ public class ErrorHandler {
     public ResponseEntity<String> alreadyExist(Exception exception) {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(exception.getMessage());
     }
+
+    @ExceptionHandler(value = {UserNotFoundException.class})
+    public ResponseEntity<String> notFound(Exception exception) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
+    }
+
+    @ExceptionHandler(value = {UserWrongPasswordException.class})
+    public ResponseEntity<String> unauthorized(Exception exception) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(exception.getMessage());
+    }
 }
