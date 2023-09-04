@@ -13,12 +13,12 @@ import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
-public class CreateUserUseCase implements UseCase<CreateUserReq, Void> {
+public class CreateUserUseCase implements UseCase<CreateUserReq, User> {
     private final UserServiceImpl userService;
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public Void command(CreateUserReq createUserReq) {
+    public User command(CreateUserReq createUserReq) {
         User user = User.fromReq(createUserReq);
         Optional<User> existing = userService.findByMail(user.getMail());
         if(existing.isPresent()) {
@@ -26,7 +26,6 @@ public class CreateUserUseCase implements UseCase<CreateUserReq, Void> {
         }
         String password = passwordEncoder.encode(user.getPassword());
         user = user.toBuilder().password(password).balance(200.0).build();
-        userService.save(user);
-        return null;
+        return userService.save(user);
     }
 }

@@ -1,10 +1,7 @@
 package imt.framework.back.imtframeworkback.data.models;
 
 import imt.framework.back.imtframeworkback.domain.models.Dish;
-import jakarta.persistence.ElementCollection;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -25,7 +22,7 @@ public class DishModel {
     String description;
     Double price;
     String category;
-    @ElementCollection
+    @ElementCollection(fetch = FetchType.EAGER)
     List<String> allergens;
 
     public static DishModel fromDomain(Dish dish){

@@ -1,5 +1,6 @@
 package imt.framework.back.imtframeworkback.presentation.rest.dishes;
 
+import imt.framework.back.imtframeworkback.domain.models.Dish;
 import imt.framework.back.imtframeworkback.domain.requests.DishReq;
 import imt.framework.back.imtframeworkback.domain.usecases.dishes.AddDishUseCase;
 import imt.framework.back.imtframeworkback.domain.usecases.dishes.GetDishesUseCase;
@@ -15,13 +16,13 @@ public class DishController implements DishResources {
     private final GetDishesUseCase getDishesUseCase;
 
     @Override
-    public void getDishes ( ) {
-        getDishesUseCase.command(null);
+    public List<Dish> getDishes() {
+        return getDishesUseCase.command(null);
     }
 
     @Override
-    public void createDish (String image, String title, String description, Double price, String category, List<String> allergens) {
-        addDishUseCase.command(DishReq.builder()
+    public Dish createDish(String image, String title, String description, Double price, String category, List<String> allergens) {
+        return addDishUseCase.command(DishReq.builder()
                 .image(image)
                 .title(title)
                 .description(description)
@@ -29,6 +30,5 @@ public class DishController implements DishResources {
                 .category(category)
                 .allergens(allergens)
                 .build());
-
     }
 }

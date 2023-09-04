@@ -9,12 +9,11 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class AddDishUseCase implements UseCase<DishReq, Void> {
+public class AddDishUseCase implements UseCase<DishReq, Dish> {
     private final DishServiceImpl dishService;
 
     @Override
-    public Void command (DishReq dishReq) {
-        dishService.save(Dish.fromReq(dishReq));
-        return null;
+    public Dish command(DishReq dishReq) {
+        return dishService.save(Dish.fromReq(dishReq));
     }
 }

@@ -1,5 +1,6 @@
 package imt.framework.back.imtframeworkback.presentation.rest.dishes;
 
+import imt.framework.back.imtframeworkback.domain.models.Dish;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,7 +12,7 @@ import java.util.List;
 public interface DishResources {
 
     @GetMapping
-    public void getDishes();
+    List<Dish> getDishes();
     @PostMapping
-    public void createDish(@RequestParam String image, @RequestParam String title, @RequestParam String description, @RequestParam Double price, @RequestParam String category, @RequestParam List<String> allergens);
+    Dish createDish(@RequestParam String image, @RequestParam String title, @RequestParam String description, @RequestParam Double price, @RequestParam String category, @RequestParam List<String> allergens);
 }
