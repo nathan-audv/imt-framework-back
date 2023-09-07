@@ -1,6 +1,8 @@
 package imt.framework.back.imtframeworkback.integrationtests;
 
 import imt.framework.back.imtframeworkback.core.errors.UserAlreadyExistException;
+import imt.framework.back.imtframeworkback.core.errors.UserNotFoundException;
+import imt.framework.back.imtframeworkback.core.errors.UserWrongPasswordException;
 import imt.framework.back.imtframeworkback.data.models.UserModel;
 import imt.framework.back.imtframeworkback.data.repositories.UserRepository;
 import imt.framework.back.imtframeworkback.domain.models.User;
@@ -62,6 +64,45 @@ public class UserIT {
             List<UserModel> users = userRepository.findAll();
 
             assertThat(users).hasSize(1);
+        }
+    }
+
+    @Nested
+    class Get {
+        @Test
+        void getUserShouldReturnUser() {
+            String mail = "test@test.net";
+            String password = "test";
+
+            userController.createUser(mail, "", "", password);
+            User user = userController.getUser(mail, password);
+
+            UserModel userModel = userRepository.findAll().get(0);
+            assertThat(user).isEqualTo(User.fromData(userModel));
+
+        }
+
+        @Test
+        void getUserWrongPasswordShouldThrowPassword() {
+            String mail = "test@test.net";
+            String password = "test";
+
+            userController.createUser(mail, "", "", "wrong");
+
+            assertThrows(UserWrongPasswordException.class,
+                    () -> userController.getUser(mail, password)
+            );
+        }
+
+        @Test
+        void getNonExistentUserShouldThrowUserNotFoundException() {
+            String mail = "test@test.net";
+            String password = "test";
+
+            assertThrows(
+                    UserNotFoundException.class,
+                    () -> userController.getUser(mail, password)
+            );
         }
     }
 }
