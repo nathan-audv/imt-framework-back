@@ -22,7 +22,7 @@ public class DishModel {
     String description;
     Double price;
     String category;
-    @ElementCollection(fetch = FetchType.EAGER)
+    @ElementCollection
     List<String> allergens;
 
     public static DishModel fromDomain(Dish dish){
