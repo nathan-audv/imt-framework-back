@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/v1/users")
 public interface UserResources {
     @PostMapping
-    void createUser(
+    User createUser(
             @RequestParam String mail,
             @RequestParam String firstname,
             @RequestParam String lastname,

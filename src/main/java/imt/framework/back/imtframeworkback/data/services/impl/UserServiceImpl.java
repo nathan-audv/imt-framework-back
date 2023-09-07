@@ -15,8 +15,8 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
 
     @Override
-    public void save(User user) {
-        userRepository.save(UserModel.fromDomain(user));
+    public User save(User user) {
+        return User.fromData(userRepository.save(UserModel.fromDomain(user)));
     }
 
     @Override
