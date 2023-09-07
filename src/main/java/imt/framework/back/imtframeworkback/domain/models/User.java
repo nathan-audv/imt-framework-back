@@ -1,7 +1,7 @@
 package imt.framework.back.imtframeworkback.domain.models;
 
 import imt.framework.back.imtframeworkback.data.models.UserModel;
-import imt.framework.back.imtframeworkback.domain.requests.UserReq;
+import imt.framework.back.imtframeworkback.domain.requests.CreateUserReq;
 import lombok.Builder;
 import lombok.Value;
 
@@ -15,7 +15,7 @@ public class User {
     String password;
     Double balance;
 
-    public static User fromReq(UserReq user){
+    public static User fromReq(CreateUserReq user){
         return User.builder()
                 .mail(user.getMail())
                 .firstname(user.getFirstname())
