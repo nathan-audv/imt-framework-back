@@ -17,7 +17,7 @@ public interface UserResources {
     );
 
     @GetMapping
-    User getUser(
+    User authenticateUser(
             @RequestParam String mail,
             @RequestParam String password
     );

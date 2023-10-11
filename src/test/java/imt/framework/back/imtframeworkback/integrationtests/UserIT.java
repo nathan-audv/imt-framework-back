@@ -75,7 +75,7 @@ public class UserIT {
             String password = "test";
 
             userController.createUser(mail, "", "", password);
-            User user = userController.getUser(mail, password);
+            User user = userController.authenticateUser(mail, password);
 
             UserModel userModel = userRepository.findAll().get(0);
             assertThat(user).isEqualTo(User.fromData(userModel));
@@ -90,7 +90,7 @@ public class UserIT {
             userController.createUser(mail, "", "", "wrong");
 
             assertThrows(UserWrongPasswordException.class,
-                    () -> userController.getUser(mail, password)
+                    () -> userController.authenticateUser(mail, password)
             );
         }
 
@@ -101,7 +101,7 @@ public class UserIT {
 
             assertThrows(
                     UserNotFoundException.class,
-                    () -> userController.getUser(mail, password)
+                    () -> userController.authenticateUser(mail, password)
             );
         }
     }

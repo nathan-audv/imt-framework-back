@@ -4,7 +4,7 @@ import imt.framework.back.imtframeworkback.domain.models.User;
 import imt.framework.back.imtframeworkback.domain.requests.CreateUserReq;
 import imt.framework.back.imtframeworkback.domain.requests.GetUserReq;
 import imt.framework.back.imtframeworkback.domain.usecases.users.CreateUserUseCase;
-import imt.framework.back.imtframeworkback.domain.usecases.users.GetUserUseCase;
+import imt.framework.back.imtframeworkback.domain.usecases.users.AuthenticateUserUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class UserController implements UserResources {
     private final CreateUserUseCase createUserUseCase;
-    private final GetUserUseCase getUserUseCase;
+    private final AuthenticateUserUseCase authenticateUserUseCase;
 
     @Override
     public User createUser(String mail, String firstname, String lastname, String password) {
@@ -22,7 +22,7 @@ public class UserController implements UserResources {
     }
 
     @Override
-    public User getUser(String mail, String password) {
-        return getUserUseCase.command(GetUserReq.builder().mail(mail).password(password).build());
+    public User authenticateUser(String mail, String password) {
+        return authenticateUserUseCase.command(GetUserReq.builder().mail(mail).password(password).build());
     }
 }

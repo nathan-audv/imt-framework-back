@@ -1,7 +1,10 @@
 package imt.framework.back.imtframeworkback.data.models;
 
 import imt.framework.back.imtframeworkback.domain.models.Dish;
-import jakarta.persistence.*;
+import jakarta.persistence.ElementCollection;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
