@@ -15,18 +15,17 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class CreateUserUseCase implements UseCase<CreateUserReq, User> {
     private final UserService userService;
-    //private final PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public User command(CreateUserReq createUserReq) {
-        User user = User.fromReq(createUserReq);
-        Optional<User> existing = userService.findByMail(user.getMail());
+        Optional<User> existing = userService.findByMail(createUserReq.getMail());
         if (existing.isPresent()) {
-            throw new UserAlreadyExistException(user.getMail());
+            throw new UserAlreadyExistException(createUserReq.getMail());
         }
-        //String password = passwordEncoder.encode(user.getPassword());
-        String password = user.getPassword();
-        user = user.toBuilder().password(password).balance(200.0).build();
+        User user = User.fromReq(createUserReq, 200.0);
+        String password = passwordEncoder.encode(user.getPassword());
+        user = user.toBuilder().password(password).build();
         return userService.save(user);
     }
 }

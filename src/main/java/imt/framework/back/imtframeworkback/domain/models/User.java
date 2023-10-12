@@ -15,12 +15,13 @@ public class User {
     String password;
     Double balance;
 
-    public static User fromReq(CreateUserReq user) {
+    public static User fromReq(CreateUserReq user, Double balance){
         return User.builder()
                 .mail(user.getMail())
                 .firstname(user.getFirstname())
                 .lastname(user.getLastname())
                 .password(user.getPassword())
+                .balance(balance)
                 .build();
     }
 

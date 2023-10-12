@@ -18,16 +18,16 @@ import java.util.Optional;
 public class AuthenticateUserUseCase implements UseCase<GetUserReq, User> {
     private final UserService userService;
     private final TokenService tokenService;
-    //private final PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public User command(GetUserReq getUserReq) {
         Optional<User> user = userService.findByMail(getUserReq.getMail());
         if (user.isEmpty()) throw new UserNotFoundException(getUserReq.getMail());
         User existing = user.get();
-        //if (!passwordEncoder.matches(getUserReq.getPassword(), existing.getPassword())) {
-         //   throw new UserWrongPasswordException(getUserReq.getMail());
-        //}
+        if (!passwordEncoder.matches(getUserReq.getPassword(), existing.getPassword())) {
+            throw new UserWrongPasswordException(getUserReq.getMail());
+        }
         return existing;
     }
 }
