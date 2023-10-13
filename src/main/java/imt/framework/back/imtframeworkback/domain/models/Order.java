@@ -12,6 +12,8 @@ public class Order {
     Integer id;
     User user;
     String address;
+    Double price;
+    Long date;
     List<OrderLine> orderLines;
     String note;
 
@@ -20,6 +22,8 @@ public class Order {
                 .id(orderModel.getOrderId())
                 .user(User.fromData(orderModel.getUser()))
                 .address(orderModel.getAddress())
+                .price(orderModel.getPrice())
+                .date(orderModel.getDate())
                 .orderLines(orderModel.getOrderLines().stream().map(OrderLine::fromData).toList())
                 .note(orderModel.getNote())
                 .build();

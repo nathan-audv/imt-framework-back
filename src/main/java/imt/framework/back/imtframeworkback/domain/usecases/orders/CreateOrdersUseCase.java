@@ -1,6 +1,7 @@
 package imt.framework.back.imtframeworkback.domain.usecases.orders;
 
 import imt.framework.back.imtframeworkback.core.errors.DishNotFoundException;
+import imt.framework.back.imtframeworkback.core.errors.UserHasNotEnoughMoneyException;
 import imt.framework.back.imtframeworkback.core.errors.UserNotFoundException;
 import imt.framework.back.imtframeworkback.core.utils.UseCase;
 import imt.framework.back.imtframeworkback.data.services.DishService;
@@ -15,6 +16,7 @@ import imt.framework.back.imtframeworkback.domain.requests.OrderLineReq;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -29,20 +31,30 @@ public class CreateOrdersUseCase implements UseCase<CreateOrderReq, Order> {
     @Override
     public Order command(CreateOrderReq createOrderReq) {
         List<OrderLine> orderLines = new ArrayList<>();
+        double cost = 0.0;
 
-        Optional<User> user = userService.findById(createOrderReq.getUserId());
-        if (user.isEmpty()) throw new UserNotFoundException(createOrderReq.getUserId().toString());
+        Optional<User> optUser = userService.findById(createOrderReq.getUserId());
+        if (optUser.isEmpty()) throw new UserNotFoundException(createOrderReq.getUserId().toString());
+        User user = optUser.get();
 
         for (OrderLineReq orderLineReq : createOrderReq.getOrderLines()) {
             Optional<Dish> dish = dishService.findById(orderLineReq.getDishId());
             if (dish.isEmpty()) throw new DishNotFoundException(orderLineReq.getDishId());
-            else orderLines.add(OrderLine.builder().dish(dish.get()).quantity(orderLineReq.getQuantity()).build());
+            Dish tmpDish = dish.get();
+            cost += tmpDish.getPrice() * orderLineReq.getQuantity();
+            orderLines.add(OrderLine.builder().dish(tmpDish).quantity(orderLineReq.getQuantity()).build());
         }
 
+        if (cost > user.getBalance()) throw new UserHasNotEnoughMoneyException(user.getId());
+        user = user.toBuilder().balance(user.getBalance() - cost).build();
+        userService.save(user);
+
         Order order = Order.builder()
-                .user(user.get())
+                .user(user)
                 .address(createOrderReq.getAddress())
                 .orderLines(orderLines)
+                .price(cost)
+                .date(Instant.now().toEpochMilli())
                 .note(createOrderReq.getNote())
                 .build();
 
