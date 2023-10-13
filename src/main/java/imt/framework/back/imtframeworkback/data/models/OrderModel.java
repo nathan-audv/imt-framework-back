@@ -22,7 +22,7 @@ public class OrderModel {
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     UserModel user;
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true) @JoinColumn(name = "order_lines_id")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true) @JoinColumn(name = "order_id")
     List<OrderLineModel> orderLines;
     Double price;
     Long date;
