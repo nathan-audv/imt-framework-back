@@ -23,4 +23,9 @@ public class UserServiceImpl implements UserService {
     public Optional<User> findByMail(String mail) {
         return userRepository.findByMail(mail).map(User::fromData);
     }
+
+    @Override
+    public Optional<User> findById(Integer id) {
+        return userRepository.findById(id).map(User::fromData);
+    }
 }

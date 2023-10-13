@@ -3,7 +3,6 @@ package imt.framework.back.imtframeworkback.presentation.rest.users;
 import imt.framework.back.imtframeworkback.domain.models.User;
 import imt.framework.back.imtframeworkback.domain.requests.CreateUserReq;
 import imt.framework.back.imtframeworkback.domain.requests.GetUserReq;
-import imt.framework.back.imtframeworkback.domain.models.User;
 import imt.framework.back.imtframeworkback.domain.usecases.users.CreateUserUseCase;
 import imt.framework.back.imtframeworkback.domain.usecases.users.GetUserUseCase;
 import lombok.RequiredArgsConstructor;

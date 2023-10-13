@@ -18,7 +18,7 @@ public class Dish {
     String category;
     List<String> allergens;
 
-    public static Dish fromReq(DishReq dish){
+    public static Dish fromReq(DishReq dish) {
         return Dish.builder()
                 .image(dish.getImage())
                 .title(dish.getTitle())
@@ -28,9 +28,10 @@ public class Dish {
                 .allergens(dish.getAllergens())
                 .build();
     }
-    public static Dish fromData(DishModel dish){
+
+    public static Dish fromData(DishModel dish) {
         return Dish.builder()
-                .id(dish.getId())
+                .id(dish.getDishId())
                 .image(dish.getImage())
                 .title(dish.getTitle())
                 .description(dish.getDescription())

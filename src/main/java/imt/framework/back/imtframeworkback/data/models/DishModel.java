@@ -15,8 +15,10 @@ import java.util.List;
 @AllArgsConstructor
 @Builder(toBuilder = true)
 public class DishModel {
-    @Id @GeneratedValue
-    Integer id;
+    @Id
+    @GeneratedValue
+    @Column(name = "dish_id")
+    Integer dishId;
     String image;
     String title;
     String description;
@@ -25,9 +27,9 @@ public class DishModel {
     @ElementCollection
     List<String> allergens;
 
-    public static DishModel fromDomain(Dish dish){
+    public static DishModel fromDomain(Dish dish) {
         return DishModel.builder()
-                .id(dish.getId())
+                .dishId(dish.getId())
                 .image(dish.getImage())
                 .title(dish.getTitle())
                 .description(dish.getDescription())
