@@ -7,8 +7,6 @@ import java.util.Optional;
 
 public interface DishService {
     Dish save(Dish dish);
-
     List<Dish> findAll();
-
     Optional<Dish> findById(Integer id);
 }
