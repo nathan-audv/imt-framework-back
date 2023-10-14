@@ -5,12 +5,13 @@ import imt.framework.back.imtframeworkback.domain.results.OrderRes;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RequestMapping("/v1/orders")
 public interface OrderResources {
     @PostMapping
     OrderRes createOrder(
-            @RequestParam String address,
+            @RequestParam Optional<String> address,
             @RequestParam Integer userId,
             @RequestParam String note,
             @RequestBody List<OrderLineReq> orderLines);

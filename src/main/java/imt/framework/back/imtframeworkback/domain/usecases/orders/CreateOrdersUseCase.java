@@ -32,6 +32,7 @@ public class CreateOrdersUseCase implements UseCase<CreateOrderReq, OrderRes> {
     @Override
     public OrderRes command(CreateOrderReq createOrderReq) {
         List<OrderLine> orderLines = new ArrayList<>();
+        String address = createOrderReq.getAddress().orElse("");
         double cost = 0.0;
 
         Optional<User> optUser = userService.findById(createOrderReq.getUserId());
@@ -52,7 +53,7 @@ public class CreateOrdersUseCase implements UseCase<CreateOrderReq, OrderRes> {
 
         Order order = Order.builder()
                 .user(user)
-                .address(createOrderReq.getAddress())
+                .address(address)
                 .orderLines(orderLines)
                 .price(cost)
                 .date(Instant.now().toEpochMilli())
