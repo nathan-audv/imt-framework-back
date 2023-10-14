@@ -1,11 +1,8 @@
 package imt.framework.back.imtframeworkback.presentation.rest.orders;
 
-import imt.framework.back.imtframeworkback.domain.models.Order;
 import imt.framework.back.imtframeworkback.domain.requests.OrderLineReq;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import imt.framework.back.imtframeworkback.domain.results.OrderRes;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,4 +14,7 @@ public interface OrderResources {
             @RequestParam Integer userId,
             @RequestParam String note,
             @RequestBody List<OrderLineReq> orderLines);
+
+    @GetMapping
+    List<OrderRes> getOrders(@RequestParam Integer userId);
 }
