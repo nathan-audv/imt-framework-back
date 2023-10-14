@@ -13,6 +13,7 @@ import imt.framework.back.imtframeworkback.domain.models.OrderLine;
 import imt.framework.back.imtframeworkback.domain.models.User;
 import imt.framework.back.imtframeworkback.domain.requests.CreateOrderReq;
 import imt.framework.back.imtframeworkback.domain.requests.OrderLineReq;
+import imt.framework.back.imtframeworkback.domain.results.OrderRes;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -23,13 +24,13 @@ import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
-public class CreateOrdersUseCase implements UseCase<CreateOrderReq, Order> {
+public class CreateOrdersUseCase implements UseCase<CreateOrderReq, OrderRes> {
     private final DishService dishService;
     private final UserService userService;
     private final OrderService orderService;
 
     @Override
-    public Order command(CreateOrderReq createOrderReq) {
+    public OrderRes command(CreateOrderReq createOrderReq) {
         List<OrderLine> orderLines = new ArrayList<>();
         double cost = 0.0;
 
@@ -58,6 +59,6 @@ public class CreateOrdersUseCase implements UseCase<CreateOrderReq, Order> {
                 .note(createOrderReq.getNote())
                 .build();
 
-        return orderService.save(order);
+        return OrderRes.fromDomain(orderService.save(order));
     }
 }
