@@ -21,13 +21,13 @@ public class DishController implements DishResources {
     }
 
     @Override
-    public Dish createDish(String image, String title, String description, Double price, String category, List<String> allergens) {
+    public Dish createDish(String image, String title, String description, Double price, List<String> categories, List<String> allergens) {
         return addDishUseCase.command(DishReq.builder()
                 .image(image)
                 .title(title)
                 .description(description)
                 .price(price)
-                .category(category)
+                .categories(categories)
                 .allergens(allergens)
                 .build());
     }
