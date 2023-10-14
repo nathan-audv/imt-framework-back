@@ -7,6 +7,8 @@ import imt.framework.back.imtframeworkback.domain.models.Order;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
@@ -15,5 +17,10 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Order save(Order order) {
         return Order.fromData(orderRepository.save(OrderModel.fromDomain(order)));
+    }
+
+    @Override
+    public List<Order> findByUser(Integer userId) {
+        return orderRepository.findAllByUser_UserId(userId).stream().map(Order::fromData).toList();
     }
 }
