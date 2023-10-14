@@ -13,6 +13,7 @@ public interface DishResources {
 
     @GetMapping
     List<Dish> getDishes();
+
     @PostMapping
     Dish createDish(@RequestParam String image, @RequestParam String title, @RequestParam String description, @RequestParam Double price, @RequestParam String category, @RequestParam List<String> allergens);
 }

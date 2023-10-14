@@ -21,9 +21,9 @@ public class GetUserUseCase implements UseCase<GetUserReq, User> {
     @Override
     public User command(GetUserReq getUserReq) {
         Optional<User> user = userService.findByMail(getUserReq.getMail());
-        if(user.isEmpty()) throw new UserNotFoundException(getUserReq.getMail());
+        if (user.isEmpty()) throw new UserNotFoundException(getUserReq.getMail());
         User existing = user.get();
-        if(!passwordEncoder.matches(getUserReq.getPassword(), existing.getPassword())){
+        if (!passwordEncoder.matches(getUserReq.getPassword(), existing.getPassword())) {
             throw new UserWrongPasswordException(getUserReq.getMail());
         }
         return existing;

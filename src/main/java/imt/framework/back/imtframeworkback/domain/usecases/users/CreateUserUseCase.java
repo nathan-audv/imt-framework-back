@@ -21,7 +21,7 @@ public class CreateUserUseCase implements UseCase<CreateUserReq, User> {
     public User command(CreateUserReq createUserReq) {
         User user = User.fromReq(createUserReq);
         Optional<User> existing = userService.findByMail(user.getMail());
-        if(existing.isPresent()) {
+        if (existing.isPresent()) {
             throw new UserAlreadyExistException(user.getMail());
         }
         String password = passwordEncoder.encode(user.getPassword());

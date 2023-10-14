@@ -15,7 +15,7 @@ public class User {
     String password;
     Double balance;
 
-    public static User fromReq(CreateUserReq user){
+    public static User fromReq(CreateUserReq user) {
         return User.builder()
                 .mail(user.getMail())
                 .firstname(user.getFirstname())
@@ -24,9 +24,9 @@ public class User {
                 .build();
     }
 
-    public static User fromData(UserModel user){
+    public static User fromData(UserModel user) {
         return User.builder()
-                .id(user.getId())
+                .id(user.getUserId())
                 .mail(user.getMail())
                 .firstname(user.getFirstname())
                 .lastname(user.getLastname())

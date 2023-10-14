@@ -12,9 +12,14 @@ public class ErrorHandler {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(exception.getMessage());
     }
 
-    @ExceptionHandler(value = {UserNotFoundException.class})
+    @ExceptionHandler(value = {UserNotFoundException.class, DishNotFoundException.class})
     public ResponseEntity<String> notFound(Exception exception) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
+    }
+
+    @ExceptionHandler(value = {UserHasNotEnoughMoneyException.class})
+    public ResponseEntity<String> badRequest(Exception exception) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
     }
 
     @ExceptionHandler(value = {UserWrongPasswordException.class})

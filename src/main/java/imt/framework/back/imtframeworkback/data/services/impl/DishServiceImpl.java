@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -22,5 +23,10 @@ public class DishServiceImpl implements DishService {
     @Override
     public List<Dish> findAll() {
         return dishRepository.findAll().stream().map(Dish::fromData).toList();
+    }
+
+    @Override
+    public Optional<Dish> findById(Integer id) {
+        return dishRepository.findById(id).map(Dish::fromData);
     }
 }

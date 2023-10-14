@@ -56,7 +56,7 @@ public class DishIT {
             Dish res = dishController.createDish("image", "title", "description", 1.1, "test", List.of("allergen1"));
             DishModel actual = dishRepository.findAll().get(0);
 
-            assertThat(res.getId()).isEqualTo(actual.getId());
+            assertThat(res.getId()).isEqualTo(actual.getDishId());
         }
     }
 }
