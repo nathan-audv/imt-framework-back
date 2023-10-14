@@ -17,8 +17,8 @@ public class OrderController implements OrderResources {
     private final GetOrdersUseCase getOrdersUseCase;
 
     @Override
-    public void createOrder(String address, Integer userId, String note, List<OrderLineReq> orderLineReqs) {
-        createOrdersUseCase.command(
+    public OrderRes createOrder(String address, Integer userId, String note, List<OrderLineReq> orderLineReqs) {
+        return createOrdersUseCase.command(
                 CreateOrderReq.builder().orderLines(orderLineReqs).address(address).userId(userId).note(note).build()
         );
     }

@@ -12,7 +12,7 @@ public class OrderRes {
     Double price;
     Long date;
 
-    public static OrderRes fromDomain(Order order){
+    public static OrderRes fromDomain(Order order) {
         return OrderRes.builder()
                 .id(order.getId())
                 .userId(order.getUser().getId())

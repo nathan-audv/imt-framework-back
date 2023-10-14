@@ -9,7 +9,7 @@ import java.util.List;
 @RequestMapping("/v1/orders")
 public interface OrderResources {
     @PostMapping
-    void createOrder(
+    OrderRes createOrder(
             @RequestParam String address,
             @RequestParam Integer userId,
             @RequestParam String note,
