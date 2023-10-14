@@ -23,7 +23,8 @@ public class DishModel {
     String title;
     String description;
     Double price;
-    String category;
+    @ElementCollection
+    List<String> categories;
     @ElementCollection
     List<String> allergens;
 
@@ -34,7 +35,7 @@ public class DishModel {
                 .title(dish.getTitle())
                 .description(dish.getDescription())
                 .price(dish.getPrice())
-                .category(dish.getCategory())
+                .categories(dish.getCategories())
                 .allergens(dish.getAllergens())
                 .build();
     }

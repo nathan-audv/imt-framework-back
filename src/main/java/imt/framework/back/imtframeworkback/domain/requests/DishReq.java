@@ -12,6 +12,6 @@ public class DishReq {
     String title;
     String description;
     Double price;
-    String category;
+    List<String> categories;
     List<String> allergens;
 }

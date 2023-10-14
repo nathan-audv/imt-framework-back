@@ -15,7 +15,7 @@ public class Dish {
     String title;
     String description;
     Double price;
-    String category;
+    List<String> categories;
     List<String> allergens;
 
     public static Dish fromReq(DishReq dish) {
@@ -24,7 +24,7 @@ public class Dish {
                 .title(dish.getTitle())
                 .description(dish.getDescription())
                 .price(dish.getPrice())
-                .category(dish.getCategory())
+                .categories(dish.getCategories())
                 .allergens(dish.getAllergens())
                 .build();
     }
@@ -36,7 +36,7 @@ public class Dish {
                 .title(dish.getTitle())
                 .description(dish.getDescription())
                 .price(dish.getPrice())
-                .category(dish.getCategory())
+                .categories(dish.getCategories())
                 .allergens(dish.getAllergens())
                 .build();
     }
