@@ -16,6 +16,7 @@ public class Order {
     Long date;
     List<OrderLine> orderLines;
     String note;
+    Boolean isFinished;
 
     public static Order fromData(OrderModel orderModel) {
         return Order.builder()
@@ -26,6 +27,7 @@ public class Order {
                 .date(orderModel.getDate())
                 .orderLines(orderModel.getOrderLines().stream().map(OrderLine::fromData).toList())
                 .note(orderModel.getNote())
+                .isFinished(orderModel.isFinished())
                 .build();
     }
 }

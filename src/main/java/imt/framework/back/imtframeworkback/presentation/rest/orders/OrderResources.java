@@ -16,6 +16,9 @@ public interface OrderResources {
             @RequestParam String note,
             @RequestBody List<OrderLineReq> orderLines);
 
-    @GetMapping
-    List<OrderRes> getOrders(@RequestParam Integer userId);
+    @GetMapping("/history")
+    List<OrderRes> getOrderHistory(@RequestParam Integer userId);
+
+    @GetMapping("/current")
+    List<OrderRes> getCurrentOrders(@RequestParam Integer userId);
 }

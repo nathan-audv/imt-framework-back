@@ -10,11 +10,11 @@ import java.util.List;
 
 @Component
 @RequiredArgsConstructor
-public class GetOrdersUseCase implements UseCase<Integer, List<OrderRes>> {
+public class GetCurrentOrdersUseCase implements UseCase<Integer, List<OrderRes>> {
     private final OrderService orderService;
 
     @Override
     public List<OrderRes> command(Integer request) {
-        return orderService.findByUser(request).stream().map(OrderRes::fromDomain).toList();
+        return orderService.findByUser(request).stream().filter(order -> !order.getIsFinished()).map(OrderRes::fromDomain).toList();
     }
 }
