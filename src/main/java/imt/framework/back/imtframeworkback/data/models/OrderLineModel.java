@@ -16,11 +16,11 @@ public class OrderLineModel {
     @Id
     @GeneratedValue
     @Column(name = "ol_id")
-    Integer olId;
+    private Integer olId;
     @ManyToOne
     @JoinColumn(name = "dish_id", referencedColumnName = "dish_id")
-    DishModel dish;
-    Integer quantity;
+    private DishModel dish;
+    private Integer quantity;
 
     public static OrderLineModel fromDomain(OrderLine orderLine) {
         return OrderLineModel.builder()

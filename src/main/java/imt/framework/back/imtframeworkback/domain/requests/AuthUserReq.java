@@ -5,7 +5,7 @@ import lombok.Value;
 
 @Value
 @Builder
-public class GetUserReq {
+public class AuthUserReq {
     String mail;
     String password;
 }

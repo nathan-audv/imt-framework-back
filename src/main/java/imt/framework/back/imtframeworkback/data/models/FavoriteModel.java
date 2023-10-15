@@ -16,13 +16,13 @@ public class FavoriteModel {
     @Id
     @GeneratedValue
     @Column(name = "favorite_id")
-    Integer favoriteId;
+    private Integer favoriteId;
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
-    UserModel user;
+    private UserModel user;
     @ManyToOne
     @JoinColumn(name = "dish_id", referencedColumnName = "dish_id")
-    DishModel dish;
+    private DishModel dish;
 
     public static FavoriteModel fromDomain(Favorite favorite) {
         return FavoriteModel.builder()

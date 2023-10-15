@@ -1,24 +1,18 @@
 package imt.framework.back.imtframeworkback.presentation.rest.users;
 
-import imt.framework.back.imtframeworkback.domain.models.User;
+import imt.framework.back.imtframeworkback.domain.requests.AuthUserReq;
+import imt.framework.back.imtframeworkback.domain.requests.CreateUserReq;
+import imt.framework.back.imtframeworkback.domain.results.UserRes;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @RequestMapping("/v1/users")
 public interface UserResources {
     @PostMapping
-    User createUser(
-            @RequestParam String mail,
-            @RequestParam String firstname,
-            @RequestParam String lastname,
-            @RequestParam String password
-    );
+    void createUser(@RequestBody CreateUserReq createUserReq);
 
     @GetMapping
-    User getUser(
-            @RequestParam String mail,
-            @RequestParam String password
-    );
+    UserRes authenticateUser(@RequestBody AuthUserReq authUserReq);
 }

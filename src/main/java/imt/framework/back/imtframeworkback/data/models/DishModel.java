@@ -18,15 +18,15 @@ public class DishModel {
     @Id
     @GeneratedValue
     @Column(name = "dish_id")
-    Integer dishId;
-    String image;
-    String title;
-    String description;
-    Double price;
+    private Integer dishId;
+    private String image;
+    private String title;
+    private String description;
+    private Double price;
     @ElementCollection
-    List<String> categories;
+    private List<String> categories;
     @ElementCollection
-    List<String> allergens;
+    private List<String> allergens;
 
     public static DishModel fromDomain(Dish dish) {
         return DishModel.builder()
