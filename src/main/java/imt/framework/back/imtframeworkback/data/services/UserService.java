@@ -8,6 +8,8 @@ import java.util.Optional;
 public interface UserService extends UserDetailsService {
     User save(User user);
 
+    void saveWithoutReturn(User user);
+
     Optional<User> findByMail(String mail);
 
     Optional<User> findById(Integer id);

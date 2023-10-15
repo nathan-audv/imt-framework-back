@@ -17,13 +17,13 @@ import java.util.Set;
 
 @Component
 @RequiredArgsConstructor
-public class CreateUserUseCase implements UseCase<CreateUserReq, User> {
+public class CreateUserUseCase implements UseCase<CreateUserReq, Void> {
     private final UserService userService;
     private final RoleService roleService;
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public User command(CreateUserReq createUserReq) {
+    public Void command(CreateUserReq createUserReq) {
         Optional<User> existing = userService.findByMail(createUserReq.getMail());
         if (existing.isPresent()) {
             throw new UserAlreadyExistException(createUserReq.getMail());
@@ -31,17 +31,11 @@ public class CreateUserUseCase implements UseCase<CreateUserReq, User> {
 
         User user = User.fromReq(createUserReq, 200.0);
         String password = passwordEncoder.encode(user.getPassword());
-        Optional<Role> optionalRole = roleService.findByRole(Constants.USER_ROLE);
-        Role role;
-        if (optionalRole.isEmpty()) {
-            role = roleService.save(Role.builder().authority(Constants.USER_ROLE).build());
-
-        }else{
-            role = optionalRole.get();
-        }
+        Role role = roleService.findByRole(Constants.USER_ROLE).get();
 
         user = user.toBuilder().password(password).roles(Set.of(role)).build();
 
-        return userService.save(user);
+        userService.saveWithoutReturn(user);
+        return null;
     }
 }

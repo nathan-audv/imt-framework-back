@@ -17,12 +17,16 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
-    private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
 
     @Override
     public User save(User user) {
         return User.fromData(userRepository.save(UserModel.fromDomain(user)));
+    }
+
+    @Override
+    public void saveWithoutReturn(User user) {
+        userRepository.save(UserModel.fromDomain(user));
     }
 
     @Override
@@ -32,15 +36,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByMail(username)
+        return userRepository.findByMail(username)
                 .map(User::fromData)
                 .orElseThrow(() -> new UserNotFoundException(username));
-
-        if (!passwordEncoder.matches("test", user.getPassword())) {
-            throw new UserWrongPasswordException(username);
-        }
-
-        return user;
     }
 
     @Override
