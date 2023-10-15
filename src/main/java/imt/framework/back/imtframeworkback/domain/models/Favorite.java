@@ -11,7 +11,7 @@ public class Favorite {
     User user;
     Dish dish;
 
-    public static Favorite fromData(FavoriteModel favoriteModel){
+    public static Favorite fromData(FavoriteModel favoriteModel) {
         return Favorite.builder()
                 .id(favoriteModel.getFavoriteId())
                 .user(User.fromData(favoriteModel.getUser()))

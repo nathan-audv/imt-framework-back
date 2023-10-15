@@ -24,7 +24,7 @@ public class FavoriteModel {
     @JoinColumn(name = "dish_id", referencedColumnName = "dish_id")
     DishModel dish;
 
-    public static FavoriteModel fromDomain(Favorite favorite){
+    public static FavoriteModel fromDomain(Favorite favorite) {
         return FavoriteModel.builder()
                 .favoriteId(favorite.getId())
                 .user(UserModel.fromDomain(favorite.getUser()))

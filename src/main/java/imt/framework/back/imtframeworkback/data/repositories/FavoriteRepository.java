@@ -8,5 +8,6 @@ import java.util.Optional;
 
 public interface FavoriteRepository extends JpaRepository<FavoriteModel, Integer> {
     List<FavoriteModel> findAllByUser_UserId(Integer userId);
+
     Optional<FavoriteModel> findByUser_UserIdAndDish_DishId(Integer userId, Integer dishId);
 }

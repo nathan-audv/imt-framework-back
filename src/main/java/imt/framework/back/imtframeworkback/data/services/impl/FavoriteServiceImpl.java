@@ -30,7 +30,7 @@ public class FavoriteServiceImpl implements FavoriteService {
         return favoriteRepository.findByUser_UserIdAndDish_DishId(userId, dishId).map(Favorite::fromData);
     }
 
-    public void remove(Favorite favorite){
+    public void remove(Favorite favorite) {
         favoriteRepository.delete(FavoriteModel.fromDomain(favorite));
     }
 }
