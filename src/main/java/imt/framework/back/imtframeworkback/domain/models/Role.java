@@ -11,7 +11,7 @@ public class Role implements GrantedAuthority {
     Integer id;
     String authority;
 
-    public static Role fromData(RoleModel roleModel){
+    public static Role fromData(RoleModel roleModel) {
         return Role.builder()
                 .id(roleModel.getRoleId())
                 .authority(roleModel.getAuthority())

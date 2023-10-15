@@ -1,7 +1,6 @@
 package imt.framework.back.imtframeworkback.domain.usecases.users;
 
 import imt.framework.back.imtframeworkback.core.utils.UseCase;
-import imt.framework.back.imtframeworkback.data.services.RoleService;
 import imt.framework.back.imtframeworkback.data.services.TokenService;
 import imt.framework.back.imtframeworkback.data.services.UserService;
 import imt.framework.back.imtframeworkback.domain.requests.AuthUserReq;
@@ -11,7 +10,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component

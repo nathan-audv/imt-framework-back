@@ -27,7 +27,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @PostConstruct
-    private void setupUserRole(){
+    private void setupUserRole() {
         Optional<RoleModel> optionalRole = roleRepository.findByAuthority(Constants.USER_ROLE);
         if (optionalRole.isEmpty()) {
             roleRepository.save(RoleModel.builder().authority(Constants.USER_ROLE).build());

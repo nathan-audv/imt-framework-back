@@ -1,7 +1,6 @@
 package imt.framework.back.imtframeworkback.domain.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import imt.framework.back.imtframeworkback.data.models.RoleModel;
 import imt.framework.back.imtframeworkback.data.models.UserModel;
 import imt.framework.back.imtframeworkback.domain.requests.CreateUserReq;
 import lombok.Builder;
@@ -15,8 +14,7 @@ import java.util.stream.Collectors;
 
 @Value
 @Builder(toBuilder = true)
-public class User implements UserDetails
-{
+public class User implements UserDetails {
     Integer id;
     String mail;
     String firstname;
@@ -26,7 +24,7 @@ public class User implements UserDetails
     Double balance;
     Set<Role> roles;
 
-    public static User fromReq(CreateUserReq user, Double balance){
+    public static User fromReq(CreateUserReq user, Double balance) {
         return User.builder()
                 .mail(user.getMail())
                 .firstname(user.getFirstname())

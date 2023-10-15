@@ -5,7 +5,6 @@ import imt.framework.back.imtframeworkback.core.errors.UserNotFoundException;
 import imt.framework.back.imtframeworkback.core.errors.UserWrongPasswordException;
 import imt.framework.back.imtframeworkback.data.models.UserModel;
 import imt.framework.back.imtframeworkback.data.repositories.UserRepository;
-import imt.framework.back.imtframeworkback.domain.models.User;
 import imt.framework.back.imtframeworkback.domain.requests.AuthUserReq;
 import imt.framework.back.imtframeworkback.domain.requests.CreateUserReq;
 import imt.framework.back.imtframeworkback.domain.results.UserRes;

@@ -23,7 +23,7 @@ public class RoleModel implements GrantedAuthority {
     Integer roleId;
     String authority;
 
-    public static RoleModel fromDomain(Role role){
+    public static RoleModel fromDomain(Role role) {
         return RoleModel.builder()
                 .roleId(role.getId())
                 .authority(role.getAuthority())
