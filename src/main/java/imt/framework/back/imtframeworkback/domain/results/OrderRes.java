@@ -11,6 +11,7 @@ public class OrderRes {
     Integer userId;
     Double price;
     Long date;
+    boolean isFinished;
 
     public static OrderRes fromDomain(Order order) {
         return OrderRes.builder()
@@ -18,6 +19,7 @@ public class OrderRes {
                 .userId(order.getUser().getId())
                 .price(order.getPrice())
                 .date(order.getDate())
+                .isFinished(order.getIsFinished())
                 .build();
     }
 }

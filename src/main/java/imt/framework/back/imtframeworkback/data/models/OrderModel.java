@@ -29,6 +29,8 @@ public class OrderModel {
     private Long date;
     private String address;
     private String note;
+    @Column(name = "is_finished")
+    private boolean isFinished;
 
     public static OrderModel fromDomain(Order order) {
         return OrderModel.builder()
@@ -39,6 +41,7 @@ public class OrderModel {
                 .date(order.getDate())
                 .address(order.getAddress())
                 .note(order.getNote())
+                .isFinished(order.getIsFinished())
                 .build();
     }
 }
