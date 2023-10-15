@@ -1,10 +1,7 @@
 package imt.framework.back.imtframeworkback.data.models;
 
 import imt.framework.back.imtframeworkback.domain.models.Dish;
-import jakarta.persistence.ElementCollection;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,15 +18,15 @@ public class DishModel {
     @Id
     @GeneratedValue
     @Column(name = "dish_id")
-    Integer dishId;
-    String image;
-    String title;
-    String description;
-    Double price;
+    private Integer dishId;
+    private String image;
+    private String title;
+    private String description;
+    private Double price;
     @ElementCollection
-    List<String> categories;
+    private List<String> categories;
     @ElementCollection
-    List<String> allergens;
+    private List<String> allergens;
 
     public static DishModel fromDomain(Dish dish) {
         return DishModel.builder()

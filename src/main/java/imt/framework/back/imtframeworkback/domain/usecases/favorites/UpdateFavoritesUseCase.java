@@ -27,17 +27,17 @@ public class UpdateFavoritesUseCase implements UseCase<UpdateFavoritesReq, Void>
         Integer userId = updateFavoritesReq.getUserId();
         Integer dishId = updateFavoritesReq.getDishId();
 
-        Optional<User> user = userService.findById(userId);
-        if (user.isEmpty()) throw new UserNotFoundException(userId.toString());
+        User user = userService.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException(userId.toString()));
 
-        Optional<Dish> dish = dishService.findById(dishId);
-        if (dish.isEmpty()) throw new DishNotFoundException(dishId);
+        Dish dish = dishService.findById(dishId)
+                .orElseThrow(() -> new DishNotFoundException(dishId));
 
         Optional<Favorite> favorite = favoriteService.findByUserAndDish(userId, dishId);
         if (favorite.isEmpty()) {
             favoriteService.save(Favorite.builder()
-                    .user(user.get())
-                    .dish(dish.get())
+                    .user(user)
+                    .dish(dish)
                     .build());
         } else {
             favoriteService.remove(favorite.get());

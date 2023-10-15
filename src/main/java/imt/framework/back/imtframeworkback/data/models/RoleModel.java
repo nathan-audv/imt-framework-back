@@ -1,5 +1,6 @@
 package imt.framework.back.imtframeworkback.data.models;
 
+import imt.framework.back.imtframeworkback.domain.models.Role;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -19,11 +20,13 @@ public class RoleModel implements GrantedAuthority {
     @Id
     @GeneratedValue
     @Column(name = "role_id")
-    Integer id;
-    String name;
+    Integer roleId;
+    String authority;
 
-    @Override
-    public String getAuthority() {
-        return name;
+    public static RoleModel fromDomain(Role role){
+        return RoleModel.builder()
+                .roleId(role.getId())
+                .authority(role.getAuthority())
+                .build();
     }
 }

@@ -18,17 +18,17 @@ public class OrderModel {
     @Id
     @GeneratedValue
     @Column(name = "order_id")
-    Integer orderId;
+    private Integer orderId;
     @ManyToOne
     @JoinColumn(name = "user_id", referencedColumnName = "user_id")
-    UserModel user;
+    private UserModel user;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "order_id")
-    List<OrderLineModel> orderLines;
-    Double price;
-    Long date;
-    String address;
-    String note;
+    private List<OrderLineModel> orderLines;
+    private Double price;
+    private Long date;
+    private String address;
+    private String note;
 
     public static OrderModel fromDomain(Order order) {
         return OrderModel.builder()

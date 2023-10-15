@@ -32,13 +32,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<User> user = userRepository.findByMail(username).map(User::fromData);
-        if (user.isEmpty()) throw new UserNotFoundException(username);
-        User existing = user.get();
-        if (!passwordEncoder.matches("test", existing.getPassword())) {
+        User user = userRepository.findByMail(username)
+                .map(User::fromData)
+                .orElseThrow(() -> new UserNotFoundException(username));
+
+        if (!passwordEncoder.matches("test", user.getPassword())) {
             throw new UserWrongPasswordException(username);
         }
-        return existing;
+
+        return user;
     }
 
     @Override
