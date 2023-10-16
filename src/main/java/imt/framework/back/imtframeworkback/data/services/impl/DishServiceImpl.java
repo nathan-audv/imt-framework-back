@@ -17,7 +17,6 @@ public class DishServiceImpl implements DishService {
 
     @Override
     public Dish save(Dish dish) {
-        System.out.println("a");
         return Dish.fromData(dishRepository.save(DishModel.fromDomain(dish)));
     }
 
