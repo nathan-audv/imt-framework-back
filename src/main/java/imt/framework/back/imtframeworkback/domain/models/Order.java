@@ -16,7 +16,8 @@ public class Order {
     Long date;
     List<OrderLine> orderLines;
     String note;
-    Boolean isFinished;
+    @Builder.Default
+    Boolean isFinished = false;
 
     public static Order fromData(OrderModel orderModel) {
         return Order.builder()

@@ -11,9 +11,9 @@ import java.util.Optional;
 public interface OrderResources {
     @PostMapping
     OrderRes createOrder(
-            @RequestParam Optional<String> address,
+            @RequestParam(required = false) String address,
             @RequestParam Integer userId,
-            @RequestParam String note,
+            @RequestParam(required = false) String note,
             @RequestBody List<OrderLineReq> orderLines);
 
     @GetMapping

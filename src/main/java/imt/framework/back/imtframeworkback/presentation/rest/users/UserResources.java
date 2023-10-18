@@ -1,11 +1,12 @@
 package imt.framework.back.imtframeworkback.presentation.rest.users;
 
+import imt.framework.back.imtframeworkback.domain.models.User;
 import imt.framework.back.imtframeworkback.domain.requests.AuthUserReq;
 import imt.framework.back.imtframeworkback.domain.requests.CreateUserReq;
 import imt.framework.back.imtframeworkback.domain.results.UserRes;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RequestMapping("/v1/users")
 public interface UserResources {
@@ -14,4 +15,12 @@ public interface UserResources {
 
     @PostMapping("/auth")
     UserRes authenticateUser(@RequestBody AuthUserReq authUserReq);
+
+    @PutMapping
+    User updateUser(
+            @RequestParam Integer userId,
+            @RequestParam(required = false) String firstname,
+            @RequestParam(required = false) String lastname,
+            @RequestBody(required = false) String password
+    );
 }
