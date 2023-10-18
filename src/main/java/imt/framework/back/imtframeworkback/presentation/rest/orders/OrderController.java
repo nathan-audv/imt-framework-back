@@ -30,9 +30,4 @@ public class OrderController implements OrderResources {
     public List<OrderRes> getOrderHistory(Integer userId) {
         return getOrderHistoryUseCase.command(userId);
     }
-
-    @Override
-    public List<OrderRes> getCurrentOrders(Integer userId) {
-        return getCurrentOrdersUseCase.command(userId);
-    }
 }
