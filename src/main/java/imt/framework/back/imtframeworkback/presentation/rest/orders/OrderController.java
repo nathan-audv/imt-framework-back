@@ -3,9 +3,11 @@ package imt.framework.back.imtframeworkback.presentation.rest.orders;
 import imt.framework.back.imtframeworkback.domain.models.Order;
 import imt.framework.back.imtframeworkback.domain.requests.CreateOrderReq;
 import imt.framework.back.imtframeworkback.domain.requests.OrderLineReq;
+import imt.framework.back.imtframeworkback.domain.results.OrderDetailsRes;
 import imt.framework.back.imtframeworkback.domain.results.OrderRes;
 import imt.framework.back.imtframeworkback.domain.usecases.orders.CreateOrdersUseCase;
 import imt.framework.back.imtframeworkback.domain.usecases.orders.DeleteOrderUseCase;
+import imt.framework.back.imtframeworkback.domain.usecases.orders.GetOrderDetailsUseCase;
 import imt.framework.back.imtframeworkback.domain.usecases.orders.GetOrderHistoryUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,6 +20,7 @@ public class OrderController implements OrderResources {
     private final CreateOrdersUseCase createOrdersUseCase;
     private final GetOrderHistoryUseCase getOrderHistoryUseCase;
     private final DeleteOrderUseCase deleteOrderUseCase;
+    private final GetOrderDetailsUseCase getOrderDetailsUseCase;
 
     @Override
     public OrderRes createOrder(String address, Integer userId, String note, List<OrderLineReq> orderLineReqs) {
@@ -32,8 +35,8 @@ public class OrderController implements OrderResources {
     }
 
     @Override
-    public Order getOrderDetails(Integer orderId) {
-        return null;
+    public OrderDetailsRes getOrderDetails(Integer orderId) {
+        return getOrderDetailsUseCase.command(orderId);
     }
 
     @Override
