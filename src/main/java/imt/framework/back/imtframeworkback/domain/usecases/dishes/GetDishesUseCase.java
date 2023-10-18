@@ -14,7 +14,7 @@ public class GetDishesUseCase implements UseCase<Void, List<Dish>> {
     private final DishService dishService;
 
     @Override
-    public List<Dish> command(Void unused) {
+    public List<Dish> command(Void request) {
         return dishService.findAll();
     }
 }

@@ -13,7 +13,7 @@ public class AddDishUseCase implements UseCase<DishReq, Dish> {
     private final DishService dishService;
 
     @Override
-    public Dish command(DishReq dishReq) {
-        return dishService.save(Dish.fromReq(dishReq));
+    public Dish command(DishReq request) {
+        return dishService.save(Dish.fromReq(request));
     }
 }

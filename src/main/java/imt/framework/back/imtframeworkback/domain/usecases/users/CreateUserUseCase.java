@@ -23,13 +23,13 @@ public class CreateUserUseCase implements UseCase<CreateUserReq, Void> {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public Void command(CreateUserReq createUserReq) {
-        Optional<User> existing = userService.findByMail(createUserReq.getMail());
+    public Void command(CreateUserReq request) {
+        Optional<User> existing = userService.findByMail(request.getMail());
         if (existing.isPresent()) {
-            throw new UserAlreadyExistException(createUserReq.getMail());
+            throw new UserAlreadyExistException(request.getMail());
         }
 
-        User user = User.fromReq(createUserReq, 200.0);
+        User user = User.fromReq(request, 200.0);
         String password = passwordEncoder.encode(user.getPassword());
         Role role = roleService.findByRole(Constants.USER_ROLE).get();
 

@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -20,7 +21,17 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    public void delete(Order order) {
+        orderRepository.delete(OrderModel.fromDomain(order));
+    }
+
+    @Override
     public List<Order> findByUser(Integer userId) {
         return orderRepository.findAllByUser_UserId(userId).stream().map(Order::fromData).toList();
+    }
+
+    @Override
+    public Optional<Order> findById(Integer orderId) {
+        return orderRepository.findById(orderId).map(Order::fromData);
     }
 }

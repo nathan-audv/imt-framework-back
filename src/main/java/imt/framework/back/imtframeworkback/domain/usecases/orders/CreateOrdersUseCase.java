@@ -30,16 +30,16 @@ public class CreateOrdersUseCase implements UseCase<CreateOrderReq, OrderRes> {
     private final OrderService orderService;
 
     @Override
-    public OrderRes command(CreateOrderReq createOrderReq) {
+    public OrderRes command(CreateOrderReq request) {
         List<OrderLine> orderLines = new ArrayList<>();
-        String address = createOrderReq.getAddress();
+        String address = request.getAddress();
         double cost = 0.0;
 
-        Optional<User> optUser = userService.findById(createOrderReq.getUserId());
-        if (optUser.isEmpty()) throw new UserNotFoundException(createOrderReq.getUserId().toString());
+        Optional<User> optUser = userService.findById(request.getUserId());
+        if (optUser.isEmpty()) throw new UserNotFoundException(request.getUserId().toString());
         User user = optUser.get();
 
-        for (OrderLineReq orderLineReq : createOrderReq.getOrderLines()) {
+        for (OrderLineReq orderLineReq : request.getOrderLines()) {
             Optional<Dish> dish = dishService.findById(orderLineReq.getDishId());
             if (dish.isEmpty()) throw new DishNotFoundException(orderLineReq.getDishId());
             Dish tmpDish = dish.get();
@@ -57,7 +57,7 @@ public class CreateOrdersUseCase implements UseCase<CreateOrderReq, OrderRes> {
                 .orderLines(orderLines)
                 .price(cost)
                 .date(Instant.now().toEpochMilli())
-                .note(createOrderReq.getNote())
+                .note(request.getNote())
                 .build();
 
         return OrderRes.fromDomain(orderService.save(order));

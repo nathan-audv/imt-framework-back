@@ -18,4 +18,7 @@ public interface OrderResources {
 
     @GetMapping
     List<OrderRes> getOrderHistory(@RequestParam Integer userId);
+
+    @DeleteMapping
+    OrderRes deleteOrder(@RequestParam Integer orderId);
 }
