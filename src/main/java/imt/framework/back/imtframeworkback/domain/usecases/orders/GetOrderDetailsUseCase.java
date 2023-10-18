@@ -1,20 +1,19 @@
 package imt.framework.back.imtframeworkback.domain.usecases.orders;
 
+import imt.framework.back.imtframeworkback.core.errors.OrderNotFoundException;
 import imt.framework.back.imtframeworkback.core.utils.UseCase;
 import imt.framework.back.imtframeworkback.data.services.OrderService;
-import imt.framework.back.imtframeworkback.domain.results.OrderRes;
+import imt.framework.back.imtframeworkback.domain.models.Order;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-
 @Component
 @RequiredArgsConstructor
-public class GetOrderHistoryUseCase implements UseCase<Integer, List<OrderRes>> {
+public class GetOrderDetailsUseCase implements UseCase<Integer, Order> {
     private final OrderService orderService;
 
     @Override
-    public List<OrderRes> command(Integer request) {
-        return orderService.findByUser(request).stream().map(OrderRes::fromDomain).toList();
+    public Order command(Integer request) {
+        return orderService.findById(request).orElseThrow(() -> new OrderNotFoundException(request));
     }
 }

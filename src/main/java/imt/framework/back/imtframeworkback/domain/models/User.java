@@ -5,10 +5,8 @@ import imt.framework.back.imtframeworkback.data.models.UserModel;
 import imt.framework.back.imtframeworkback.domain.requests.CreateUserReq;
 import lombok.Builder;
 import lombok.Value;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Collectors;
 

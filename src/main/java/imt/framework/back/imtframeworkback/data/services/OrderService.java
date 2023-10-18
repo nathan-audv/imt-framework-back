@@ -11,5 +11,6 @@ public interface OrderService {
     void delete(Order order);
 
     List<Order> findByUser(Integer userId);
+
     Optional<Order> findById(Integer orderId);
 }
