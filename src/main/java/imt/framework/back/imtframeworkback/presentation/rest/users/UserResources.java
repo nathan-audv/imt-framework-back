@@ -6,8 +6,6 @@ import imt.framework.back.imtframeworkback.domain.requests.CreateUserReq;
 import imt.framework.back.imtframeworkback.domain.results.UserRes;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
-
 @RequestMapping("/v1/users")
 public interface UserResources {
     @PostMapping

@@ -1,5 +1,6 @@
 package imt.framework.back.imtframeworkback.presentation.rest.orders;
 
+import imt.framework.back.imtframeworkback.domain.models.Order;
 import imt.framework.back.imtframeworkback.domain.requests.CreateOrderReq;
 import imt.framework.back.imtframeworkback.domain.requests.OrderLineReq;
 import imt.framework.back.imtframeworkback.domain.results.OrderRes;
@@ -10,7 +11,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequiredArgsConstructor
@@ -29,6 +29,11 @@ public class OrderController implements OrderResources {
     @Override
     public List<OrderRes> getOrderHistory(Integer userId) {
         return getOrderHistoryUseCase.command(userId);
+    }
+
+    @Override
+    public Order getOrderDetails(Integer orderId) {
+        return null;
     }
 
     @Override
