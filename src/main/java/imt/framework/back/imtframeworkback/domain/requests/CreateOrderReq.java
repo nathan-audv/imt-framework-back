@@ -11,7 +11,7 @@ import java.util.Optional;
 public class CreateOrderReq {
     List<OrderLineReq> orderLines;
     Integer userId;
-    Optional<String> address;
+    String address;
     String note;
 }
 

@@ -32,7 +32,7 @@ public class CreateOrdersUseCase implements UseCase<CreateOrderReq, OrderRes> {
     @Override
     public OrderRes command(CreateOrderReq createOrderReq) {
         List<OrderLine> orderLines = new ArrayList<>();
-        String address = createOrderReq.getAddress().orElse("");
+        String address = createOrderReq.getAddress();
         double cost = 0.0;
 
         Optional<User> optUser = userService.findById(createOrderReq.getUserId());

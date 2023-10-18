@@ -30,7 +30,7 @@ public class OrderModel {
     private String address;
     private String note;
     @Column(name = "is_finished")
-    private boolean isFinished;
+    private boolean isFinished = false;
 
     public static OrderModel fromDomain(Order order) {
         return OrderModel.builder()
