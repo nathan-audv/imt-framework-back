@@ -2,6 +2,7 @@ package imt.framework.back.imtframeworkback.presentation.rest.orders;
 
 import imt.framework.back.imtframeworkback.domain.models.Order;
 import imt.framework.back.imtframeworkback.domain.requests.OrderLineReq;
+import imt.framework.back.imtframeworkback.domain.results.OrderDetailsRes;
 import imt.framework.back.imtframeworkback.domain.results.OrderRes;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +21,7 @@ public interface OrderResources {
     List<OrderRes> getOrderHistory(@RequestParam Integer userId);
 
     @GetMapping("/details")
-    Order getOrderDetails(@RequestParam Integer orderId);
+    OrderDetailsRes getOrderDetails(@RequestParam Integer orderId);
 
     @DeleteMapping
     OrderRes deleteOrder(@RequestParam Integer orderId);
