@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity(name = "users")
 @Data
@@ -29,7 +30,7 @@ public class UserModel implements UserDetails {
     private Double balance;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role_junction", joinColumns = {@JoinColumn(name = "user_id")}, inverseJoinColumns = {@JoinColumn(name = "role_id")})
-    private Set<RoleModel> roles;
+    private Set<RoleModel> authorities;
 
     public static UserModel fromDomain(User user) {
         return UserModel.builder()
@@ -39,12 +40,8 @@ public class UserModel implements UserDetails {
                 .lastname(user.getLastname())
                 .password(user.getPassword())
                 .balance(user.getBalance())
+                .authorities(user.getAuthorities().stream().map(RoleModel::fromDomain).collect(Collectors.toSet()))
                 .build();
-    }
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.roles;
     }
 
     @Override

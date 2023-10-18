@@ -33,7 +33,7 @@ public class CreateUserUseCase implements UseCase<CreateUserReq, Void> {
         String password = passwordEncoder.encode(user.getPassword());
         Role role = roleService.findByRole(Constants.USER_ROLE).get();
 
-        user = user.toBuilder().password(password).roles(Set.of(role)).build();
+        user = user.toBuilder().password(password).authorities(Set.of(role)).build();
 
         userService.saveWithoutReturn(user);
         return null;

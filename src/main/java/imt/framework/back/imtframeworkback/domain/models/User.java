@@ -22,7 +22,7 @@ public class User implements UserDetails {
     @JsonIgnore
     String password;
     Double balance;
-    Set<Role> roles;
+    Set<Role> authorities;
 
     public static User fromReq(CreateUserReq user, Double balance) {
         return User.builder()
@@ -42,13 +42,8 @@ public class User implements UserDetails {
                 .lastname(user.getLastname())
                 .password(user.getPassword())
                 .balance(user.getBalance())
-                .roles(user.getRoles().stream().map(Role::fromData).collect(Collectors.toSet()))
+                .authorities(user.getAuthorities().stream().map(Role::fromData).collect(Collectors.toSet()))
                 .build();
-    }
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return roles;
     }
 
     @Override

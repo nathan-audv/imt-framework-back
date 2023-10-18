@@ -16,6 +16,6 @@ public class GetOrderHistoryUseCase implements UseCase<Integer, List<OrderRes>> 
 
     @Override
     public List<OrderRes> command(Integer request) {
-        return orderService.findByUser(request).stream().filter(Order::getIsFinished).map(OrderRes::fromDomain).toList();
+        return orderService.findByUser(request).stream().map(OrderRes::fromDomain).toList();
     }
 }
