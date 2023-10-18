@@ -23,9 +23,9 @@ public class UpdateFavoritesUseCase implements UseCase<UpdateFavoritesReq, Void>
     private final DishService dishService;
 
     @Override
-    public Void command(UpdateFavoritesReq updateFavoritesReq) {
-        Integer userId = updateFavoritesReq.getUserId();
-        Integer dishId = updateFavoritesReq.getDishId();
+    public Void command(UpdateFavoritesReq request) {
+        Integer userId = request.getUserId();
+        Integer dishId = request.getDishId();
 
         User user = userService.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException(userId.toString()));

@@ -20,9 +20,9 @@ public class AuthenticateUserUseCase implements UseCase<AuthUserReq, UserRes> {
     private final AuthenticationManager authenticationManager;
 
     @Override
-    public UserRes command(AuthUserReq authUserReq) throws AuthenticationException {
-        String mail = authUserReq.getMail();
-        String password = authUserReq.getPassword();
+    public UserRes command(AuthUserReq request) throws AuthenticationException {
+        String mail = request.getMail();
+        String password = request.getPassword();
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(mail, password)
         );

@@ -27,6 +27,7 @@ import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -64,6 +65,7 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
                 .authorizeHttpRequests(authorize -> {
+                    authorize.requestMatchers(AntPathRequestMatcher.antMatcher("/h2/**")).permitAll();
                     authorize.requestMatchers(mvc.pattern("/swagger-ui/**"), mvc.pattern("/swagger-resources/**"), mvc.pattern("/swagger-resources"), mvc.pattern("/v3/api-docs/**"), mvc.pattern("/proxy/**")).permitAll();
                     authorize.requestMatchers(mvc.pattern(HttpMethod.POST, "/v1/users/"), mvc.pattern("/v1/users/auth")).permitAll();
                     authorize.anyRequest().authenticated();

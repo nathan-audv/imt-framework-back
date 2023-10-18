@@ -12,7 +12,7 @@ public class ErrorHandler {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(exception.getMessage());
     }
 
-    @ExceptionHandler(value = {UserNotFoundException.class, DishNotFoundException.class})
+    @ExceptionHandler(value = {UserNotFoundException.class, DishNotFoundException.class, OrderNotFoundException.class})
     public ResponseEntity<String> notFound(Exception exception) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(exception.getMessage());
     }
