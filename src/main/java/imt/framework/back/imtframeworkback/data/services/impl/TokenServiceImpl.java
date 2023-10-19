@@ -1,9 +1,11 @@
 package imt.framework.back.imtframeworkback.data.services.impl;
 
 import imt.framework.back.imtframeworkback.data.services.TokenService;
+import imt.framework.back.imtframeworkback.domain.models.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.jwt.JwtClaimsSet;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
@@ -34,5 +36,14 @@ public class TokenServiceImpl implements TokenService {
                 .claim("roles", scope)
                 .build();
         return jwtEncoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
+    }
+
+    @Override
+    public User getMail() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if(authentication != null) {
+            return (User) authentication.getPrincipal();
+        }
+        return null;
     }
 }
