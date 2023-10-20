@@ -1,15 +1,13 @@
 package imt.framework.back.imtframeworkback.domain.usecases.favorites;
 import imt.framework.back.imtframeworkback.data.services.FavoriteService;
+import imt.framework.back.imtframeworkback.data.services.TokenService;
 import imt.framework.back.imtframeworkback.domain.models.Dish;
 import imt.framework.back.imtframeworkback.domain.models.Favorite;
 import imt.framework.back.imtframeworkback.domain.models.User;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+import org.mockito.*;
 
 import java.util.List;
 
@@ -27,22 +25,30 @@ public class GetFavoriteUseCaseTest {
 
     @Test
     public void getFavoritesShouldReturnAllFavorites() {
-        User user = User.builder().id(0).build();
-        List<Favorite> favorites = List.of(Favorite.builder().id(0).user(user).build(),Favorite.builder().id(1).user(user).build());
-        Mockito.when(favoriteService.findByUser(0)).thenReturn(favorites);
+        try (MockedStatic<TokenService> mocked = Mockito.mockStatic(TokenService.class)) {
+            mocked.when(() -> TokenService.isUserValid(0)).thenReturn(true);
 
-        List<Dish> res = getFavoritesUseCase.command(0);
+            User user = User.builder().id(0).build();
+            List<Favorite> favorites = List.of(Favorite.builder().id(0).user(user).build(), Favorite.builder().id(1).user(user).build());
+            Mockito.when(favoriteService.findByUser(0)).thenReturn(favorites);
 
-        Assertions.assertThat(res).hasSize(2);
+            List<Dish> res = getFavoritesUseCase.command(0);
+
+            Assertions.assertThat(res).hasSize(2);
+        }
 
     }
     @Test
     public void getDishesWithoutDishesShouldReturnEmpty() {
-        Mockito.when(favoriteService.findByUser(0)).thenReturn(List.of());
+        try (MockedStatic<TokenService> mocked = Mockito.mockStatic(TokenService.class)) {
+            mocked.when(() -> TokenService.isUserValid(0)).thenReturn(true);
 
-        List<Dish> res = getFavoritesUseCase.command(0);
+            Mockito.when(favoriteService.findByUser(0)).thenReturn(List.of());
 
-        Assertions.assertThat(res).isEmpty();
+            List<Dish> res = getFavoritesUseCase.command(0);
+
+            Assertions.assertThat(res).isEmpty();
+        }
     }
 
 }

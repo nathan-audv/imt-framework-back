@@ -4,7 +4,7 @@ import imt.framework.back.imtframeworkback.domain.requests.CreateOrderReq;
 import imt.framework.back.imtframeworkback.domain.requests.OrderLineReq;
 import imt.framework.back.imtframeworkback.domain.results.OrderDetailsRes;
 import imt.framework.back.imtframeworkback.domain.results.OrderRes;
-import imt.framework.back.imtframeworkback.domain.usecases.orders.CreateOrdersUseCase;
+import imt.framework.back.imtframeworkback.domain.usecases.orders.CreateOrderUseCase;
 import imt.framework.back.imtframeworkback.domain.usecases.orders.DeleteOrderUseCase;
 import imt.framework.back.imtframeworkback.domain.usecases.orders.GetOrderDetailsUseCase;
 import imt.framework.back.imtframeworkback.domain.usecases.orders.GetOrderHistoryUseCase;
@@ -18,7 +18,7 @@ import java.util.List;
 @RestController
 @RequiredArgsConstructor
 public class OrderController implements OrderResources {
-    private final CreateOrdersUseCase createOrdersUseCase;
+    private final CreateOrderUseCase createOrdersUseCase;
     private final GetOrderHistoryUseCase getOrderHistoryUseCase;
     private final DeleteOrderUseCase deleteOrderUseCase;
     private final GetOrderDetailsUseCase getOrderDetailsUseCase;

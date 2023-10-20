@@ -26,7 +26,7 @@ import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
-public class CreateOrdersUseCase implements UseCase<CreateOrderReq, OrderRes> {
+public class CreateOrderUseCase implements UseCase<CreateOrderReq, OrderRes> {
     private final DishService dishService;
     private final UserService userService;
     private final OrderService orderService;
@@ -39,16 +39,12 @@ public class CreateOrdersUseCase implements UseCase<CreateOrderReq, OrderRes> {
         String address = request.getAddress();
         double cost = 0.0;
 
-        Optional<User> optUser = userService.findById(request.getUserId());
-        if (optUser.isEmpty()) throw new UserNotFoundException(request.getUserId().toString());
-        User user = optUser.get();
+        User user = userService.findById(request.getUserId()).orElseThrow(() -> new UserNotFoundException(request.getUserId().toString()));
 
         for (OrderLineReq orderLineReq : request.getOrderLines()) {
-            Optional<Dish> dish = dishService.findById(orderLineReq.getDishId());
-            if (dish.isEmpty()) throw new DishNotFoundException(orderLineReq.getDishId());
-            Dish tmpDish = dish.get();
-            cost += tmpDish.getPrice() * orderLineReq.getQuantity();
-            orderLines.add(OrderLine.builder().dish(tmpDish).quantity(orderLineReq.getQuantity()).build());
+            Dish dish = dishService.findById(orderLineReq.getDishId()).orElseThrow(() -> new DishNotFoundException(orderLineReq.getDishId()));
+            cost += dish.getPrice() * orderLineReq.getQuantity();
+            orderLines.add(OrderLine.builder().dish(dish).quantity(orderLineReq.getQuantity()).build());
         }
 
         if (cost > user.getBalance()) throw new UserHasNotEnoughMoneyException(user.getId());

@@ -2,22 +2,22 @@ package imt.framework.back.imtframeworkback.domain.usecases.favorites;
 
 import imt.framework.back.imtframeworkback.core.errors.DishNotFoundException;
 import imt.framework.back.imtframeworkback.core.errors.UserNotFoundException;
+import imt.framework.back.imtframeworkback.core.errors.UserNotValidException;
 import imt.framework.back.imtframeworkback.data.services.DishService;
 import imt.framework.back.imtframeworkback.data.services.FavoriteService;
+import imt.framework.back.imtframeworkback.data.services.TokenService;
 import imt.framework.back.imtframeworkback.data.services.UserService;
 import imt.framework.back.imtframeworkback.domain.models.Dish;
 import imt.framework.back.imtframeworkback.domain.models.Favorite;
 import imt.framework.back.imtframeworkback.domain.models.User;
 import imt.framework.back.imtframeworkback.domain.requests.UpdateFavoritesReq;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+import org.mockito.*;
 
 import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class UpdateFavoritesUseCaseTest {
     @InjectMocks
@@ -36,6 +36,21 @@ public class UpdateFavoritesUseCaseTest {
     }
 
     @Test
+    public void updateFavoritesWithoutUserShouldThrowUserNotValidException() {
+        Integer userId = 0;
+        UpdateFavoritesReq updateFavoritesReq = UpdateFavoritesReq.builder()
+                .userId(userId)
+                .dishId(0)
+                .build();
+
+        try (MockedStatic<TokenService> mocked = Mockito.mockStatic(TokenService.class)) {
+            mocked.when(() -> TokenService.isUserValid(userId)).thenReturn(false);
+
+            assertThrows(UserNotValidException.class, () -> updateFavoritesUseCase.command(updateFavoritesReq));
+        }
+    }
+
+    @Test
     public void updateFavoritesWithoutUserShouldThrowUserNotFoundException() {
         Integer userId = 0;
         UpdateFavoritesReq updateFavoritesReq = UpdateFavoritesReq.builder()
@@ -43,9 +58,12 @@ public class UpdateFavoritesUseCaseTest {
                 .dishId(0)
                 .build();
 
-        Mockito.when(userService.findById(userId)).thenReturn(Optional.empty());
+        try (MockedStatic<TokenService> mocked = Mockito.mockStatic(TokenService.class)) {
+            mocked.when(() -> TokenService.isUserValid(userId)).thenReturn(true);
+            Mockito.when(userService.findById(userId)).thenReturn(Optional.empty());
 
-        Assertions.assertThrows(UserNotFoundException.class, () -> updateFavoritesUseCase.command(updateFavoritesReq));
+            assertThrows(UserNotFoundException.class, () -> updateFavoritesUseCase.command(updateFavoritesReq));
+        }
     }
 
     @Test
@@ -58,10 +76,13 @@ public class UpdateFavoritesUseCaseTest {
                 .dishId(0)
                 .build();
 
-        Mockito.when(userService.findById(userId)).thenReturn(Optional.of(user));
-        Mockito.when(dishService.findById(dishId)).thenReturn(Optional.empty());
+        try (MockedStatic<TokenService> mocked = Mockito.mockStatic(TokenService.class)) {
+            mocked.when(() -> TokenService.isUserValid(userId)).thenReturn(true);
+            Mockito.when(userService.findById(userId)).thenReturn(Optional.of(user));
+            Mockito.when(dishService.findById(dishId)).thenReturn(Optional.empty());
 
-        Assertions.assertThrows(DishNotFoundException.class, () -> updateFavoritesUseCase.command(updateFavoritesReq));
+            assertThrows(DishNotFoundException.class, () -> updateFavoritesUseCase.command(updateFavoritesReq));
+        }
     }
 
     @Test
@@ -76,14 +97,17 @@ public class UpdateFavoritesUseCaseTest {
                 .dishId(0)
                 .build();
 
-        Mockito.when(userService.findById(userId)).thenReturn(Optional.of(user));
-        Mockito.when(dishService.findById(dishId)).thenReturn(Optional.of(dish));
-        Mockito.when(favoriteService.findByUserAndDish(userId, dishId)).thenReturn(Optional.of(favorite));
-        Mockito.doNothing().when(favoriteService).remove(favorite);
+        try (MockedStatic<TokenService> mocked = Mockito.mockStatic(TokenService.class)) {
+            mocked.when(() -> TokenService.isUserValid(userId)).thenReturn(true);
+            Mockito.when(userService.findById(userId)).thenReturn(Optional.of(user));
+            Mockito.when(dishService.findById(dishId)).thenReturn(Optional.of(dish));
+            Mockito.when(favoriteService.findByUserAndDish(userId, dishId)).thenReturn(Optional.of(favorite));
+            Mockito.doNothing().when(favoriteService).remove(favorite);
 
-        updateFavoritesUseCase.command(updateFavoritesReq);
+            updateFavoritesUseCase.command(updateFavoritesReq);
 
-        Mockito.verify(favoriteService, Mockito.times(1)).remove(favorite);
+            Mockito.verify(favoriteService, Mockito.times(1)).remove(favorite);
+        }
     }
 
     @Test
@@ -98,13 +122,16 @@ public class UpdateFavoritesUseCaseTest {
                 .dishId(0)
                 .build();
 
-        Mockito.when(userService.findById(userId)).thenReturn(Optional.of(user));
-        Mockito.when(dishService.findById(dishId)).thenReturn(Optional.of(dish));
-        Mockito.when(favoriteService.findByUserAndDish(userId, dishId)).thenReturn(Optional.empty());
-        Mockito.when(favoriteService.save(favorite)).thenReturn(favorite);
+        try (MockedStatic<TokenService> mocked = Mockito.mockStatic(TokenService.class)) {
+            mocked.when(() -> TokenService.isUserValid(userId)).thenReturn(true);
+            Mockito.when(userService.findById(userId)).thenReturn(Optional.of(user));
+            Mockito.when(dishService.findById(dishId)).thenReturn(Optional.of(dish));
+            Mockito.when(favoriteService.findByUserAndDish(userId, dishId)).thenReturn(Optional.empty());
+            Mockito.when(favoriteService.save(favorite)).thenReturn(favorite);
 
-        updateFavoritesUseCase.command(updateFavoritesReq);
+            updateFavoritesUseCase.command(updateFavoritesReq);
 
-        Mockito.verify(favoriteService, Mockito.times(1)).save(favorite);
+            Mockito.verify(favoriteService, Mockito.times(1)).save(favorite);
+        }
     }
 }
