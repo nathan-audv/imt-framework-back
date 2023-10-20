@@ -9,6 +9,8 @@ import imt.framework.back.imtframeworkback.domain.usecases.orders.DeleteOrderUse
 import imt.framework.back.imtframeworkback.domain.usecases.orders.GetOrderDetailsUseCase;
 import imt.framework.back.imtframeworkback.domain.usecases.orders.GetOrderHistoryUseCase;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -22,24 +24,25 @@ public class OrderController implements OrderResources {
     private final GetOrderDetailsUseCase getOrderDetailsUseCase;
 
     @Override
-    public OrderRes createOrder(String address, Integer userId, String note, List<OrderLineReq> orderLineReqs) {
-        return createOrdersUseCase.command(
-                CreateOrderReq.builder().orderLines(orderLineReqs).address(address).userId(userId).note(note).build()
-        );
+    public ResponseEntity<OrderRes> createOrder(String address, Integer userId, String note, List<OrderLineReq> orderLineReqs) {
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(createOrdersUseCase.command(
+                        CreateOrderReq.builder().orderLines(orderLineReqs).address(address).userId(userId).note(note).build()
+                ));
     }
 
     @Override
-    public List<OrderRes> getOrderHistory(Integer userId) {
-        return getOrderHistoryUseCase.command(userId);
+    public ResponseEntity<List<OrderRes>> getOrderHistory(Integer userId) {
+        return ResponseEntity.status(HttpStatus.OK).body(getOrderHistoryUseCase.command(userId));
     }
 
     @Override
-    public OrderDetailsRes getOrderDetails(Integer orderId) {
-        return getOrderDetailsUseCase.command(orderId);
+    public ResponseEntity<OrderDetailsRes> getOrderDetails(Integer orderId) {
+        return ResponseEntity.status(HttpStatus.OK).body(getOrderDetailsUseCase.command(orderId));
     }
 
     @Override
-    public OrderRes deleteOrder(Integer orderId) {
-        return deleteOrderUseCase.command(orderId);
+    public ResponseEntity<OrderRes> deleteOrder(Integer orderId) {
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(deleteOrderUseCase.command(orderId));
     }
 }

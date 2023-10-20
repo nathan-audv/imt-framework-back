@@ -93,14 +93,14 @@ public class SecurityConfig {
 
     @Bean
     JwtDecoder jwtDecoder() {
-        return NimbusJwtDecoder.withPublicKey(rsaKeyProperties.publicKey())
+        return NimbusJwtDecoder.withPublicKey(rsaKeyProperties.getPublicKey())
                 .build();
     }
 
     @Bean
     JwtEncoder jwtEncoder() {
-        JWK jwk = new RSAKey.Builder(rsaKeyProperties.publicKey())
-                .privateKey(rsaKeyProperties.privateKey())
+        JWK jwk = new RSAKey.Builder(rsaKeyProperties.getPublicKey())
+                .privateKey(rsaKeyProperties.getPrivateKey())
                 .build();
         JWKSource<SecurityContext> jwkSource = new ImmutableJWKSet<>(new JWKSet(jwk));
         return new NimbusJwtEncoder(jwkSource);
