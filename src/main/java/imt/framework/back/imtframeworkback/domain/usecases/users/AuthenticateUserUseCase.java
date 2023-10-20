@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -20,7 +19,7 @@ public class AuthenticateUserUseCase implements UseCase<AuthUserReq, UserRes> {
     private final AuthenticationManager authenticationManager;
 
     @Override
-    public UserRes command(AuthUserReq request) throws AuthenticationException {
+    public UserRes command(AuthUserReq request) {
         String mail = request.getMail();
         String password = request.getPassword();
         Authentication authentication = authenticationManager.authenticate(
