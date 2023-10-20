@@ -28,4 +28,6 @@ It must be at the root of your user.
 ## Documentation
 Access documentation on http://localhost:8080/swagger-ui/index.html
 
-! Most of the calls are not usable because of authorisation. Please use Postman or something.
+! Most of the calls are not usable because of authorisation. Please use Postman or something using Bearer token.
+## Presentation support 
+https://www.canva.com/design/DAFxVhRW8BA/HV6-3ofM27r6CeInWyM-Jw/edit?utm_content=DAFxVhRW8BA&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton*https://www.canva.com/design/DAFxVhRW8BA/HV6-3ofM27r6CeInWyM-Jw/edit?utm_content=DAFxVhRW8BA&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton*
