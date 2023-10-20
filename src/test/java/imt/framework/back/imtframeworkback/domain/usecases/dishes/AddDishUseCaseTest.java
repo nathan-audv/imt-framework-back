@@ -29,7 +29,6 @@ public class AddDishUseCaseTest {
     @Test
     public void addDishShouldAdd ( ) {
         Dish dish = Dish.builder()
-                .id(0)
                 .image("a")
                 .title("b")
                 .description("c")
