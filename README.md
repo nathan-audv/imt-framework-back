@@ -25,6 +25,10 @@ A database with default values is available at : https://drive.google.com/file/d
 It must be at the root of your user.
 - Unix : ~/
 - Windows : C:/Users/<User>/
+
+Login
+- user : demo@gmail.com
+- password: demo
 ## Documentation
 Access documentation on http://localhost:8080/swagger-ui/index.html
 
