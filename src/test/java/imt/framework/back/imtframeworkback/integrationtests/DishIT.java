@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
+import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -27,27 +28,27 @@ public class DishIT {
         dishRepository.deleteAll();
     }
 
-    /*@Nested
+    @Nested
     class Get {
         @Test
         void getDishesShouldReturnEmptyThem() {
             dishRepository.save(new DishModel());
             dishRepository.save(new DishModel());
 
-            List<Dish> res = dishController.getDishes();
+            Set<Dish> res = dishController.getDishes(null, null).getBody();
 
             assertThat(res).hasSize(2);
         }
 
         @Test
         void getDishesEmptyDBShouldReturnEmptyList() {
-            List<Dish> res = dishController.getDishes();
+            Set<Dish> res = dishController.getDishes(null, null).getBody();
             List<Dish> actual = dishRepository.findAll().stream().map(Dish::fromData).toList();
 
             assertThat(res).isEmpty();
-            assertThat(res).isEqualTo(actual);
+            assertThat(actual).isEmpty();
         }
-    }*/
+    }
 
     @Nested
     class Create {

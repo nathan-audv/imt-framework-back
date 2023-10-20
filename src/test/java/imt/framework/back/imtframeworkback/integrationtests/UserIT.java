@@ -1,10 +1,10 @@
 package imt.framework.back.imtframeworkback.integrationtests;
 
 import imt.framework.back.imtframeworkback.core.errors.UserAlreadyExistException;
-import imt.framework.back.imtframeworkback.core.errors.UserNotFoundException;
-import imt.framework.back.imtframeworkback.core.errors.UserWrongPasswordException;
+import imt.framework.back.imtframeworkback.core.errors.UserAuthException;
 import imt.framework.back.imtframeworkback.data.models.UserModel;
 import imt.framework.back.imtframeworkback.data.repositories.UserRepository;
+import imt.framework.back.imtframeworkback.domain.models.User;
 import imt.framework.back.imtframeworkback.domain.requests.AuthUserReq;
 import imt.framework.back.imtframeworkback.domain.requests.CreateUserReq;
 import imt.framework.back.imtframeworkback.domain.results.UserRes;
@@ -35,21 +35,23 @@ public class UserIT {
 
     @Nested
     class Create {
-        /*@Test
+        @Test
         void createUserShouldReturnSavedUser() {
             String mail = "test.test@test.net";
             String firstname = "firstname";
             String lastname = "lastname";
             String password = "password";
 
-            User user = userController.createUser(CreateUserReq.builder()
+            userController.createUser(CreateUserReq.builder()
                     .mail(mail).firstname(firstname).lastname(lastname).password(password)
                     .build());
 
-            UserModel userModel = userRepository.findAll().get(0);
+            List<UserModel> users = userRepository.findAll();
 
-            assertThat(user).isEqualTo(User.fromData(userModel));
-        }*/
+            assertThat(users).hasSize(1);
+            assertThat(users.get(0).getMail()).isEqualTo(mail);
+            assertThat(users.get(0).getPassword()).isNotEqualTo(password);
+        }
 
         @Test
         void createExistingUserShouldThrowUserAlreadyExistException() {
@@ -58,8 +60,9 @@ public class UserIT {
             String lastname = "lastname";
             String password = "password";
 
-            userController.createUser(CreateUserReq.builder()
-                    .mail(mail).firstname(firstname).lastname(lastname).password(password)
+            userRepository.save(UserModel.builder()
+                    .mail(mail)
+                    .password(password)
                     .build());
 
             assertThrows(
@@ -93,7 +96,7 @@ public class UserIT {
         }
 
         @Test
-        void getUserWrongPasswordShouldThrowPassword() {
+        void getUserWrongPasswordShouldThrowUserAuthException() {
             String mail = "test@test.net";
             String password = "test";
 
@@ -101,18 +104,18 @@ public class UserIT {
                     .mail(mail).firstname("").lastname("").password("wrong")
                     .build());
 
-            assertThrows(UserWrongPasswordException.class,
+            assertThrows(UserAuthException.class,
                     () -> userController.authenticateUser(AuthUserReq.builder().mail(mail).password(password).build())
             );
         }
 
         @Test
-        void getNonExistentUserShouldThrowUserNotFoundException() {
+        void getNonExistentUserShouldThrowUserAuthException() {
             String mail = "test@test.net";
             String password = "test";
 
             assertThrows(
-                    UserNotFoundException.class,
+                    UserAuthException.class,
                     () -> userController.authenticateUser(AuthUserReq.builder().mail(mail).password(password).build())
             );
         }
