@@ -1,6 +1,5 @@
 package imt.framework.back.imtframeworkback.presentation.rest.orders;
 
-import imt.framework.back.imtframeworkback.domain.models.Order;
 import imt.framework.back.imtframeworkback.domain.requests.CreateOrderReq;
 import imt.framework.back.imtframeworkback.domain.requests.OrderLineReq;
 import imt.framework.back.imtframeworkback.domain.results.OrderDetailsRes;
