@@ -20,7 +20,8 @@ Access console on http://localhost:8080/h2
 - username : oopframework
 - no password
 
-A database with default values is available at : 
+A database with default values is available at : https://drive.google.com/file/d/1osNP22eespj6M9-DhE_H10SpTCKxfbXr/view?usp=sharing
+
 It must be at the root of your user.
 - Unix : ~/
 - Windows : C:/Users/<User>/
