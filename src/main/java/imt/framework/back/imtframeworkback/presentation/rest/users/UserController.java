@@ -8,6 +8,8 @@ import imt.framework.back.imtframeworkback.domain.usecases.users.AuthenticateUse
 import imt.framework.back.imtframeworkback.domain.usecases.users.CreateUserUseCase;
 import imt.framework.back.imtframeworkback.domain.usecases.users.UpdateUserUseCase;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -18,8 +20,9 @@ public class UserController implements UserResources {
     private final UpdateUserUseCase updateUserUseCase;
 
     @Override
-    public void createUser(CreateUserReq createUserReq) {
+    public ResponseEntity<Void> createUser(CreateUserReq createUserReq) {
         createUserUseCase.command(createUserReq);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @Override

@@ -9,6 +9,8 @@ import imt.framework.back.imtframeworkback.domain.usecases.orders.DeleteOrderUse
 import imt.framework.back.imtframeworkback.domain.usecases.orders.GetOrderDetailsUseCase;
 import imt.framework.back.imtframeworkback.domain.usecases.orders.GetOrderHistoryUseCase;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -22,10 +24,11 @@ public class OrderController implements OrderResources {
     private final GetOrderDetailsUseCase getOrderDetailsUseCase;
 
     @Override
-    public OrderRes createOrder(String address, Integer userId, String note, List<OrderLineReq> orderLineReqs) {
-        return createOrdersUseCase.command(
-                CreateOrderReq.builder().orderLines(orderLineReqs).address(address).userId(userId).note(note).build()
-        );
+    public ResponseEntity<OrderRes> createOrder(String address, Integer userId, String note, List<OrderLineReq> orderLineReqs) {
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(createOrdersUseCase.command(
+                        CreateOrderReq.builder().orderLines(orderLineReqs).address(address).userId(userId).note(note).build()
+                ));
     }
 
     @Override
@@ -39,7 +42,7 @@ public class OrderController implements OrderResources {
     }
 
     @Override
-    public OrderRes deleteOrder(Integer orderId) {
-        return deleteOrderUseCase.command(orderId);
+    public ResponseEntity<OrderRes> deleteOrder(Integer orderId) {
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).body(deleteOrderUseCase.command(orderId));
     }
 }
