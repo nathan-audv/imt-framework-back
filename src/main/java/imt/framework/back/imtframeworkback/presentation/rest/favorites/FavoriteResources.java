@@ -21,9 +21,23 @@ public interface FavoriteResources {
     @Operation(summary = "Get user's favorites")
     @ApiResponses(value = {
             @ApiResponse(
-                    responseCode = "204",
-                    description = "Get user's order details",
-                    content = {@Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = OrderDetailsRes.class)))}
+                    responseCode = "200",
+                    description = "Get user's favorites",
+                    content = {@Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = Dish.class)))}
+            ),
+            @ApiResponse(
+                    responseCode = "403",
+                    description = "User not valid"
+            )
+    })
+    List<Dish> getFavorites(@RequestParam Integer userId);
+
+    @PutMapping
+    @Operation(summary = "Update user's favorites")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Update user's favorites"
             ),
             @ApiResponse(
                     responseCode = "403",
@@ -31,11 +45,8 @@ public interface FavoriteResources {
             ),
             @ApiResponse(
                     responseCode = "404",
-                    description = "Order not found"
+                    description = "Dish not found\t\nUser not found"
             )
     })
-    List<Dish> getFavorites(@RequestParam Integer userId);
-
-    @PutMapping
     void updateFavorites(@RequestParam Integer userId, @RequestParam Integer dishId);
 }
