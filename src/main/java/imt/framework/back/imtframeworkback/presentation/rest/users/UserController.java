@@ -3,6 +3,7 @@ package imt.framework.back.imtframeworkback.presentation.rest.users;
 import imt.framework.back.imtframeworkback.domain.models.User;
 import imt.framework.back.imtframeworkback.domain.requests.AuthUserReq;
 import imt.framework.back.imtframeworkback.domain.requests.CreateUserReq;
+import imt.framework.back.imtframeworkback.domain.requests.UpdateUserReq;
 import imt.framework.back.imtframeworkback.domain.results.UserRes;
 import imt.framework.back.imtframeworkback.domain.usecases.users.AuthenticateUserUseCase;
 import imt.framework.back.imtframeworkback.domain.usecases.users.CreateUserUseCase;
@@ -26,12 +27,19 @@ public class UserController implements UserResources {
     }
 
     @Override
-    public UserRes authenticateUser(AuthUserReq authUserReq) {
-        return authenticateUserUseCase.command(authUserReq);
+    public ResponseEntity<UserRes> authenticateUser(AuthUserReq authUserReq) {
+        return ResponseEntity.status(HttpStatus.OK).body(authenticateUserUseCase.command(authUserReq));
     }
 
     @Override
-    public User updateUser(Integer userId, String firstname, String lastname, String password) {
-        return null;
+    public ResponseEntity<User> updateUser(Integer userId, String firstname, String lastname, String password) {
+        return ResponseEntity.status(HttpStatus.OK).body(updateUserUseCase.command(
+                UpdateUserReq.builder()
+                        .userId(userId)
+                        .firstname(firstname)
+                        .lastname(lastname)
+                        .password(password)
+                        .build())
+        );
     }
 }

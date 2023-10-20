@@ -32,13 +32,13 @@ public class OrderController implements OrderResources {
     }
 
     @Override
-    public List<OrderRes> getOrderHistory(Integer userId) {
-        return getOrderHistoryUseCase.command(userId);
+    public ResponseEntity<List<OrderRes>> getOrderHistory(Integer userId) {
+        return ResponseEntity.status(HttpStatus.OK).body(getOrderHistoryUseCase.command(userId));
     }
 
     @Override
-    public OrderDetailsRes getOrderDetails(Integer orderId) {
-        return getOrderDetailsUseCase.command(orderId);
+    public ResponseEntity<OrderDetailsRes> getOrderDetails(Integer orderId) {
+        return ResponseEntity.status(HttpStatus.OK).body(getOrderDetailsUseCase.command(orderId));
     }
 
     @Override

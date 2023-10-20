@@ -53,7 +53,7 @@ public class DishIT {
     class Create {
         @Test
         void createDishShouldReturnItself() {
-            Dish res = dishController.createDish("image", "title", "description", 1.1, List.of("test"), List.of("allergen1"));
+            Dish res = dishController.createDish("image", "title", "description", 1.1, List.of("test"), List.of("allergen1")).getBody();
             DishModel actual = dishRepository.findAll().get(0);
 
             assertThat(res.getId()).isEqualTo(actual.getDishId());

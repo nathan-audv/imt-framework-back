@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,7 +31,7 @@ public interface FavoriteResources {
                     description = "User not valid"
             )
     })
-    List<Dish> getFavorites(@RequestParam Integer userId);
+    ResponseEntity<List<Dish>> getFavorites(@RequestParam Integer userId);
 
     @PutMapping
     @Operation(summary = "Update user's favorites")
@@ -48,5 +49,5 @@ public interface FavoriteResources {
                     description = "Dish not found\t\nUser not found"
             )
     })
-    void updateFavorites(@RequestParam Integer userId, @RequestParam Integer dishId);
+    ResponseEntity<Void> updateFavorites(@RequestParam Integer userId, @RequestParam Integer dishId);
 }

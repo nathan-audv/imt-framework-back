@@ -56,7 +56,7 @@ public interface OrderResources {
                     description = "User not valid"
             )
     })
-    List<OrderRes> getOrderHistory(@RequestParam Integer userId);
+    ResponseEntity<List<OrderRes>> getOrderHistory(@RequestParam Integer userId);
 
     @GetMapping("/details")
     @Operation(summary = "Get user's order details")
@@ -75,7 +75,7 @@ public interface OrderResources {
                     description = "Order not found"
             )
     })
-    OrderDetailsRes getOrderDetails(@RequestParam Integer orderId);
+    ResponseEntity<OrderDetailsRes> getOrderDetails(@RequestParam Integer orderId);
 
     @DeleteMapping
     @Operation(summary = "Delete user order")

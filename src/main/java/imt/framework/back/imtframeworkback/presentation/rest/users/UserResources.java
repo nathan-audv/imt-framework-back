@@ -47,7 +47,7 @@ public interface UserResources {
                     description = "Authentication error"
             ),
     })
-    UserRes authenticateUser(@RequestBody AuthUserReq authUserReq);
+    ResponseEntity<UserRes> authenticateUser(@RequestBody AuthUserReq authUserReq);
 
     @PutMapping
     @Operation(summary = "Update user's information")
@@ -65,7 +65,7 @@ public interface UserResources {
                     description = "User not found"
             )
     })
-    User updateUser(
+    ResponseEntity<User> updateUser(
             @RequestParam Integer userId,
             @RequestParam(required = false) String firstname,
             @RequestParam(required = false) String lastname,

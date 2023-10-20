@@ -85,7 +85,7 @@ public class UserIT {
             userController.createUser(CreateUserReq.builder()
                     .mail(mail).firstname("").lastname("").password(password)
                     .build());
-            UserRes user = userController.authenticateUser(AuthUserReq.builder().mail(mail).password(password).build());
+            UserRes user = userController.authenticateUser(AuthUserReq.builder().mail(mail).password(password).build()).getBody();
 
             UserModel userModel = userRepository.findAll().get(0);
             assertThat(user.getUser().getId()).isEqualTo(userModel.getUserId());
