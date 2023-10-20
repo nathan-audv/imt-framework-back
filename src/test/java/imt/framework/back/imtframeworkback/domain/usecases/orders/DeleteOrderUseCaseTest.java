@@ -27,9 +27,6 @@ public class DeleteOrderUseCaseTest {
     @Mock
     private UserService userService;
 
-    @Mock
-    private DishService dishService;
-
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
@@ -72,7 +69,6 @@ public class DeleteOrderUseCaseTest {
         Integer userId = 0;
         User user = User.builder().id(userId).build();
         Integer request = 0;
-        Order order = Order.builder().id(request).user(user).build();
 
         Mockito.when(userService.findById(userId)).thenReturn(Optional.of(user));
         Mockito.when(orderService.findById(request)).thenThrow(UserNotValidException.class);

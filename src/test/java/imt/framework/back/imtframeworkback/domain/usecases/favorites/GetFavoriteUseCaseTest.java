@@ -1,5 +1,4 @@
 package imt.framework.back.imtframeworkback.domain.usecases.favorites;
-
 import imt.framework.back.imtframeworkback.data.services.FavoriteService;
 import imt.framework.back.imtframeworkback.domain.models.Dish;
 import imt.framework.back.imtframeworkback.domain.models.Favorite;
