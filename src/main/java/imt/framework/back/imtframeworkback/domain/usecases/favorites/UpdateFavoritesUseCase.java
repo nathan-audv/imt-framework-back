@@ -2,9 +2,11 @@ package imt.framework.back.imtframeworkback.domain.usecases.favorites;
 
 import imt.framework.back.imtframeworkback.core.errors.DishNotFoundException;
 import imt.framework.back.imtframeworkback.core.errors.UserNotFoundException;
+import imt.framework.back.imtframeworkback.core.errors.UserNotValidException;
 import imt.framework.back.imtframeworkback.core.utils.UseCase;
 import imt.framework.back.imtframeworkback.data.services.DishService;
 import imt.framework.back.imtframeworkback.data.services.FavoriteService;
+import imt.framework.back.imtframeworkback.data.services.TokenService;
 import imt.framework.back.imtframeworkback.data.services.UserService;
 import imt.framework.back.imtframeworkback.domain.models.Dish;
 import imt.framework.back.imtframeworkback.domain.models.Favorite;
@@ -24,6 +26,8 @@ public class UpdateFavoritesUseCase implements UseCase<UpdateFavoritesReq, Void>
 
     @Override
     public Void command(UpdateFavoritesReq request) {
+        if (!TokenService.isUserValid(request.getUserId())) throw new UserNotValidException();
+
         Integer userId = request.getUserId();
         Integer dishId = request.getDishId();
 

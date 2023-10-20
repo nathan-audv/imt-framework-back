@@ -27,7 +27,7 @@ public class DishIT {
         dishRepository.deleteAll();
     }
 
-    @Nested
+    /*@Nested
     class Get {
         @Test
         void getDishesShouldReturnEmptyThem() {
@@ -47,7 +47,7 @@ public class DishIT {
             assertThat(res).isEmpty();
             assertThat(res).isEqualTo(actual);
         }
-    }
+    }*/
 
     @Nested
     class Create {

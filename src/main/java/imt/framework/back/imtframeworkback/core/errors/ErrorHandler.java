@@ -26,4 +26,9 @@ public class ErrorHandler {
     public ResponseEntity<String> unauthorized(Exception exception) {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(exception.getMessage());
     }
+
+    @ExceptionHandler(value = {UserNotValidException.class})
+    public ResponseEntity<String> forbidden(Exception exception) {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(exception.getMessage());
+    }
 }

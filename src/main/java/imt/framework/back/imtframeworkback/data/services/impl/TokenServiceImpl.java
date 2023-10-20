@@ -1,11 +1,11 @@
 package imt.framework.back.imtframeworkback.data.services.impl;
 
 import imt.framework.back.imtframeworkback.data.services.TokenService;
+import imt.framework.back.imtframeworkback.domain.models.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.jwt.JwtClaimsSet;
-import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
 import org.springframework.stereotype.Service;
@@ -18,10 +18,10 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class TokenServiceImpl implements TokenService {
     private final JwtEncoder jwtEncoder;
-    private final JwtDecoder jwtDecoder;
 
     @Override
     public String generateToken(Authentication authentication) {
+        Integer userId = ((User) authentication.getPrincipal()).getId();
         Instant now = Instant.now();
         String scope = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority)
@@ -32,6 +32,7 @@ public class TokenServiceImpl implements TokenService {
                 .expiresAt(now.plus(1, ChronoUnit.HOURS))
                 .subject(authentication.getName())
                 .claim("roles", scope)
+                .claim("userId", userId)
                 .build();
         return jwtEncoder.encode(JwtEncoderParameters.from(claims)).getTokenValue();
     }

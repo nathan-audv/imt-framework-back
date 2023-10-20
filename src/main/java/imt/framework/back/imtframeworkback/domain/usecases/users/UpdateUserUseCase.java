@@ -1,7 +1,9 @@
 package imt.framework.back.imtframeworkback.domain.usecases.users;
 
 import imt.framework.back.imtframeworkback.core.errors.UserNotFoundException;
+import imt.framework.back.imtframeworkback.core.errors.UserNotValidException;
 import imt.framework.back.imtframeworkback.core.utils.UseCase;
+import imt.framework.back.imtframeworkback.data.services.TokenService;
 import imt.framework.back.imtframeworkback.data.services.UserService;
 import imt.framework.back.imtframeworkback.domain.models.User;
 import imt.framework.back.imtframeworkback.domain.models.User.UserBuilder;
@@ -19,6 +21,8 @@ public class UpdateUserUseCase implements UseCase<UpdateUserReq, User> {
 
     @Override
     public User command(UpdateUserReq request) {
+        if (!TokenService.isUserValid(request.getUserId())) throw new UserNotValidException();
+
         UserBuilder user = userService.findById(request.getUserId()).orElseThrow(() -> new UserNotFoundException(request.getUserId().toString())).toBuilder();
         if (request.getFirstname() != null) user.firstname(request.getFirstname());
         if (request.getLastname() != null) user.lastname(request.getLastname());
