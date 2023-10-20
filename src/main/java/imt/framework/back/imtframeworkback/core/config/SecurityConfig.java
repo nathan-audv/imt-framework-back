@@ -67,7 +67,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> {
                     authorize.requestMatchers(AntPathRequestMatcher.antMatcher("/h2/**")).permitAll();
                     authorize.requestMatchers(mvc.pattern("/swagger-ui/**"), mvc.pattern("/swagger-resources/**"), mvc.pattern("/swagger-resources"), mvc.pattern("/v3/api-docs/**"), mvc.pattern("/proxy/**")).permitAll();
-                    authorize.requestMatchers(mvc.pattern(HttpMethod.POST, "/v1/users/"), mvc.pattern("/v1/users/auth")).permitAll();
+                    authorize.requestMatchers(mvc.pattern(HttpMethod.POST, "/v1/users"), mvc.pattern("/v1/users/auth")).permitAll();
+                    authorize.requestMatchers(mvc.pattern(HttpMethod.POST, "/v1/dishes")).permitAll();
                     authorize.anyRequest().authenticated();
                 })
                 .oauth2ResourceServer(oauth2 ->
