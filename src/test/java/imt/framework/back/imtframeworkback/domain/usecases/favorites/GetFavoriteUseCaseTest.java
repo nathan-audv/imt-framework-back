@@ -1,8 +1,6 @@
 package imt.framework.back.imtframeworkback.domain.usecases.favorites;
 
-import imt.framework.back.imtframeworkback.data.services.DishService;
 import imt.framework.back.imtframeworkback.data.services.FavoriteService;
-import imt.framework.back.imtframeworkback.data.services.UserService;
 import imt.framework.back.imtframeworkback.domain.models.Dish;
 import imt.framework.back.imtframeworkback.domain.models.Favorite;
 import imt.framework.back.imtframeworkback.domain.models.User;
@@ -22,10 +20,6 @@ public class GetFavoriteUseCaseTest {
 
     @Mock
     private FavoriteService favoriteService;
-    @Mock
-    private UserService userService;
-    @Mock
-    private DishService dishService;
 
     @BeforeEach
     public void setUp() {
@@ -45,7 +39,6 @@ public class GetFavoriteUseCaseTest {
     }
     @Test
     public void getDishesWithoutDishesShouldReturnEmpty() {
-        User user = User.builder().id(0).build();
         Mockito.when(favoriteService.findByUser(0)).thenReturn(List.of());
 
         List<Dish> res = getFavoritesUseCase.command(0);
