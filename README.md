@@ -9,6 +9,7 @@ Now using PostgreSQL to deploy it.
 - Lombok (avoid generating getters, setters, ...)
 - PostgreSQL
 - Swagger UI (documentation)
+- Testcontainers (integration tests)
 ### Prerequisites
 - Install JDK 17+
 - IntelliJ Ultimate Edition or Community Edition
@@ -16,6 +17,8 @@ Now using PostgreSQL to deploy it.
 - You can change database location on `application.yml` file into `src/resources` folder
 #### With local
 - Change credential on `application.yml`
+### Tests
+- Run `mvn test` to run tests, database is created by Testcontainers
 ## Documentation
 Access documentation on http://localhost:8080/swagger-ui/index.html
 
