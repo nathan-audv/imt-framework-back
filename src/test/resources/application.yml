@@ -1,14 +1,6 @@
 spring:
   jpa:
     hibernate:
-      ddl-auto: create-drop
-    database-platform: org.hibernate.dialect.H2Dialect
+      ddl-auto: create
   datasource:
-    url: "jdbc:h2:mem:framework-test-db"
-    driver-class-name: org.h2.Driver
-    username: "test"
-    password: ""
-  h2:
-    console:
-      enabled: true
-      path: "/h2"
+    driver-class-name: org.postgresql.Driver
