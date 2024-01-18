@@ -13,8 +13,8 @@ spring:
       ddl-auto: update
   datasource:
     url: url
-    username: secret
-    password: secret
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
 
 rsa:
   private-key: "classpath:certs/private.pem"
