@@ -1,9 +1,12 @@
 server:
   port: 8080
 
-springdoc:
-  swagger-ui:
-    path: "/"
+management:
+  endpoints:
+    enabled-by-default: false
+  endpoint:
+    health:
+      enabled: true
 spring:
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect

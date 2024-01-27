@@ -65,7 +65,7 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
                 .authorizeHttpRequests(authorize -> {
-                    authorize.requestMatchers(AntPathRequestMatcher.antMatcher("/h2/**")).permitAll();
+                    authorize.requestMatchers(mvc.pattern("/actuator/health")).permitAll();
                     authorize.requestMatchers(mvc.pattern("/swagger-ui/**"), mvc.pattern("/swagger-resources/**"), mvc.pattern("/swagger-resources"), mvc.pattern("/v3/api-docs/**"), mvc.pattern("/proxy/**")).permitAll();
                     authorize.requestMatchers(mvc.pattern(HttpMethod.POST, "/v1/users"), mvc.pattern("/v1/users/auth")).permitAll();
                     authorize.requestMatchers(mvc.pattern(HttpMethod.POST, "/v1/dishes")).permitAll();
