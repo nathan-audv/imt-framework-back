@@ -15,7 +15,6 @@ spring:
       hibernate.temp.usi_jdbc_metadata_defaults: false
     hibernate:
       ddl-auto: update
-
   datasource:
     url: jdbc:postgresql://postgres-service:5432/postgres
     username: ${DB_USERNAME}
