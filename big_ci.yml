@@ -1,10 +1,13 @@
 stages:
   - build
+  - sonarqube
   - docker_build
   - docker_push
 build:
   - mvn clean install
+sonarqube:
+  - sonar-scanner -Dsonar.host.url={SONAR_URL} -Dsonar.login={SONAR_TOKEN} -Dsonar.projectKey={SONAR_PROJECT_KEY} -Dsonar.projectName={SONAR_PROJECT_NAME} -Dsonar.projectVersion={SONAR_PROJECT_VERSION} -Dsonar.sources=.
 docker_build:
-  - docker build -t registry.nathanaudvard.fr/imt-framework-back:{tag} ./
+  - docker build -t registry.nathanaudvard.fr/imt-framework-back:{TAG} ./
 docker_push:
-  - docker push registry.nathanaudvard.fr/imt-framework-back:{tag}
+  - docker push registry.nathanaudvard.fr/imt-framework-back:{TAG}
