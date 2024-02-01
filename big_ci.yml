@@ -6,7 +6,7 @@ stages:
 build:
   - mvn clean install
 sonarqube:
-  - sonar-scanner -Dsonar.host.url={SONAR_URL} -Dsonar.login={SONAR_TOKEN} -Dsonar.projectKey={SONAR_PROJECT_KEY} -Dsonar.projectName={SONAR_PROJECT_NAME} -Dsonar.projectVersion={SONAR_PROJECT_VERSION} -Dsonar.sources=.
+  - sonar-scanner -Dsonar.host.url={SONAR_URL} -Dsonar.login={SONAR_TOKEN} -Dsonar.projectKey={SONAR_PROJECT_KEY} -Dsonar.projectName={SONAR_PROJECT_NAME} -Dsonar.projectVersion={SONAR_PROJECT_VERSION} -Dsonar.sources=./target/imt-framework-back-0.0.1-SNAPSHOT.jar
 docker_build:
   - docker build -t registry.nathanaudvard.fr/imt-framework-back:{TAG} ./
 docker_push:
