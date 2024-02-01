@@ -5,6 +5,6 @@ stages:
 build:
   - mvn clean install
 docker_build:
-  - docker build -t registry.nathanaudvard.fr/imt-framework-back ./
+  - docker build -t registry.nathanaudvard.fr/imt-framework-back:{tag} ./
 docker_push:
   - docker push registry.nathanaudvard.fr/imt-framework-back:{tag}
